@@ -4,12 +4,11 @@ public class Solution {
     public int solution(int n) {
         int answer = 0;
         
-        String num = Integer.toString(n);
-        
-        for(int i = 0 ; i < num.length() ; i++){
-            answer += Character.getNumericValue(num.charAt(i));
+        while(true){
+            if(n%10 != 0)answer +=n%10;
+            if(n < 10)break;
+            n /=10;
         }
-
         // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
         System.out.println("Hello Java");
 
