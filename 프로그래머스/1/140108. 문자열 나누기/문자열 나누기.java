@@ -1,28 +1,22 @@
 class Solution {
     public int solution(String s) {
         int answer = 0;
-        char spell = '\0';
-        int count = 0 ;
         
-        for(char ch : s.toCharArray()){
+        int count = 0 ;
+        char check = s.charAt(0);
+        
+        
+        for(char c : s.toCharArray()){
             if(count == 0){
-                spell = ch;
+                check = c;
+                answer++;
             }
-            
-            if(spell == ch){
+            if(check == c){
                 count++;
             }else{
                 count--;
             }
             
-            if(count == 0){
-                answer++;
-            }
-            
-        }
-        
-        if(count > 0){
-            answer++;
         }
         
         return answer;
