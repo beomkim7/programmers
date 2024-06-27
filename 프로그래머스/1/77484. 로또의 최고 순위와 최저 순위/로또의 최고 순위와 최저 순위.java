@@ -1,45 +1,29 @@
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 class Solution {
-    public List<Integer> solution(int[] lottos, int[] win_nums) {
-        Set<Integer> count = new HashSet<>();
+    public int[] solution(int[] lottos, int[] win_nums) {
         
-        for(int num : win_nums){
-            count.add(num);
-        }
+        int real = 0 ;
+        int zero = 0 ;
+        Map <Integer,Boolean> num = new HashMap<>();
         
-        int match = 0;
-        int zero = 0;
-        
-        for(int lotto : lottos){
-            if(lotto == 0){
+        for(int i = 0 ; i < lottos.length ; i++){
+            if(lottos[i] == 0){
                 zero++;
+                continue;
             }
-            if(count.contains(lotto)){
-                match++;
-            }
+            num.put(lottos[i],true);
         }
         
-        int finalZero = realNum(zero+match);
-        int finalmatch = realNum(match);
+        for(int i = 0 ; i < win_nums.length ; i++){
+            if(num.containsKey(win_nums[i])){
+                real++;
+            }
+        }
+        int maxnum = Math.min(6,7 - (real+zero));
+        int minnum = Math.min(6,7 - real);
         
-        List<Integer> answer = new ArrayList<>();
-        answer.add(finalZero);
-        answer.add(finalmatch);
+        int[] answer = {maxnum,minnum};
         
         return answer;
     }
-    private int realNum(int number){
-        switch(number){
-            case 6 : return 1;
-            case 5 : return 2;
-            case 4 : return 3;
-            case 3 : return 4;
-            case 2 : return 5;
-            default: return 6;
-        }
-    }
 }
-
