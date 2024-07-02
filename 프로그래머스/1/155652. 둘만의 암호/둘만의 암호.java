@@ -1,28 +1,20 @@
-import java.util.List;
-import java.util.ArrayList;
 class Solution {
     public String solution(String s, String skip, int index) {
-        char[] checks = s.toCharArray();
-        char[] skips = skip.toCharArray();
+        StringBuilder answer = new StringBuilder();
         
-        List<Character> ar = new ArrayList<>();
-        
-        for(int i = 0 ; i <= 25 ; i++){
-            ar.add((char)(i+97));
+        for(char c : s.toCharArray()){
+            char check = c;
+            int idx = 0 ;
+            
+            while(idx < index){
+                check=check=='z'?'a':(char)(check+1);
+                if(!skip.contains(String.valueOf(check))){
+                    idx +=1;
+                }
+            }
+            answer.append(check);
+            
         }
-        
-        for(char c : skips){
-            ar.remove(Character.valueOf(c));
-        }
-        
-        for(int i = 0 ; i < checks.length ; i++){
-            int num = ar.indexOf(Character.valueOf(checks[i]))+index;
-            num = num % ar.size();
-            checks[i] = ar.get(num);
-        }
-        
-        
-        String answer = new String(checks);
-        return answer;
+        return answer.toString();
     }
 }
