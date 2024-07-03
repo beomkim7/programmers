@@ -6,9 +6,4 @@ class Solution {
         
         return answer;
     }
-    
-    public void main(String args[]){
-        Solution solution = new Solution();
-        System.out.println(solution.solution("1234"));
-    }
 }
