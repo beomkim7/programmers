@@ -1,23 +1,17 @@
-import java.util.*;
 class Solution {
     public String solution(String s) {
         String answer = "";
         
-        ArrayList<Integer> num = new ArrayList<>();
+        String [] num = s.split(" ");
         
-        String [] nums = s.split(" ");
-        for(int i = 0, j = 1 ; i < nums.length ; i++,j++){
-            if(!nums[i].equals("-")){
-                num.add(Integer.parseInt(nums[i]));
-            }else{
-                num.add(Integer.parseInt(nums[i]+nums[j]));
-                i = j ;
-            }
+        int max,min,n;
+        min = max = Integer.parseInt(num[0]);
+        for(int i = 0 ; i < num.length ; i++){
+            n = Integer.parseInt(num[i]);
+            if(min > n)min = n;
+            if(max < n)max = n;
         }
-        Collections.sort(num);
-        
-        answer = num.get(0)+" "+num.get(num.size()-1);
-        
+        answer = min + " " + max;
         return answer;
     }
 }
