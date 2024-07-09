@@ -6,10 +6,9 @@ class Solution {
         
         for(String b : babbling){
             for(String c : check){
-                b = b.replace(c,"1");
-                b = b.replace("1"," ");
-                b = b.trim();
+                b = b.replace(c,"1");                
             }
+            b = b.replace("1","");
             if(b.isEmpty()){
                 answer++;
             }
