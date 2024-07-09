@@ -2,11 +2,16 @@ class Solution {
     public int solution(String[] babbling) {
         int answer = 0;
         
-        String patturn = "^(aya||ye||woo||ma)+$";
+        String [] check = {"aya", "ye", "woo", "ma"};
         
         for(String b : babbling){
-            if(b.matches(patturn)){
-                answer ++;
+            for(String c : check){
+                b = b.replace(c,"1");
+                b = b.replace("1"," ");
+                b = b.trim();
+            }
+            if(b.isEmpty()){
+                answer++;
             }
         }
         
