@@ -4,14 +4,15 @@ class Solution {
         
         String [] check = {"aya", "ye", "woo", "ma"};
         
-        for(String b : babbling){
-            for(String c : check){
-                b = b.replace(c,"1");                
+        for(int i = 0 ; i < babbling.length ; i++){
+            for(int j = 0 ; j < check.length ; j++){
+                babbling[i] = babbling[i].replace(check[j]," ");
+                babbling[i] = babbling[i].trim();
             }
-            b = b.replace("1","");
-            if(b.isEmpty()){
+            if(babbling[i].equals("")){
                 answer++;
             }
+            
         }
         
         return answer;
