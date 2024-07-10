@@ -3,38 +3,32 @@ class Solution {
         int[][] answer = new int [n][n];
         
         int num = 1 ;
-        int left = 0 , right = n-1 , top = 0 , bottom = n-1;
-        while(left <= right && top <= bottom){
-            for(int i = left ; i <= right ; i++){
-                answer[top][i]=num;
-                num++;                
-            }
-            top++;
-            
-            for(int i = top ; i <= bottom ; i++){
-                answer[i][bottom]=num;
+        int start = 0 ;
+        int end = n ;
+        
+        while(num <= n*n){
+            for(int i = start ; i < end ; i++){
+                answer[start][i]=num;
                 num++;
             }
-            bottom--;
-            if(top <= bottom){
-                for(int i = bottom ; i >= left ;i--){
-                    answer[right][i]=num;
-                    num++;
-                }
-                right--;
+            
+            for(int i = start+1 ; i < end ; i++){
+                answer[i][end-1]=num;
+                num++;
             }
-            if(left <= right){
-                for(int i = bottom ; i >= top ; i--){
-                    answer[i][left]=num;
-                    num++;
-                }
-                left++;
-            if(left == right){
-                answer[top][bottom]=num;
-                break;
-                }
+            
+            for(int i = end-2 ; i >= start ; i--){
+                answer[end-1][i]=num;
+                num++;
             }
+            for(int i = end-2 ; i >= start+1 ; i--){
+                answer[i][start]=num;
+                num++;
+            }
+            start++;
+            end--;
         }
+            
         
         return answer;
     }
