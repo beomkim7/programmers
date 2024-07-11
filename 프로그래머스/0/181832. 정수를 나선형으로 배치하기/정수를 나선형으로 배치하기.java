@@ -1,34 +1,39 @@
 class Solution {
     public int[][] solution(int n) {
         int[][] answer = new int [n][n];
-        
         int num = 1 ;
-        int start = 0 ;
-        int end = n ;
+        int right = 0 ; int left = n-1 ; int top = 0 ;int bottom = n-1;
         
         while(num <= n*n){
-            for(int i = start ; i < end ; i++){
-                answer[start][i]=num;
+            for(int i = right ; i <= left ; i++){
+                answer[top][i] = num;
                 num++;
+            }
+            top++;
+            
+            for(int i = top ; i <= left ; i++){
+                answer[i][left] = num;
+                num++;
+            }
+            left--;
+            if(right<=left){
+                for(int i = left ; i >= right ; i--){
+                    answer[bottom][i] =num;
+                    num++;
+                }
+                bottom--;
             }
             
-            for(int i = start+1 ; i < end ; i++){
-                answer[i][end-1]=num;
-                num++;
+            if(top<=bottom){
+                for(int i = bottom ; i >= top ; i--){
+                    answer[i][right] = num;
+                    num++;
+                }
+                right++;
             }
             
-            for(int i = end-2 ; i >= start ; i--){
-                answer[end-1][i]=num;
-                num++;
-            }
-            for(int i = end-2 ; i >= start+1 ; i--){
-                answer[i][start]=num;
-                num++;
-            }
-            start++;
-            end--;
+            
         }
-            
         
         return answer;
     }
