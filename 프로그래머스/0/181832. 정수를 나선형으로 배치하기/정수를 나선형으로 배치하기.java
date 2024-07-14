@@ -1,40 +1,41 @@
 class Solution {
     public int[][] solution(int n) {
-        int[][] answer = new int [n][n];
-        int num = 1 ;
-        int right = 0 ; int left = n-1 ; int top = 0 ;int bottom = n-1;
+        int[][] answer = new int[n][n];
         
-        while(num <= n*n){
-            for(int i = right ; i <= left ; i++){
+        int left = n ; int right = 0 ; int top = 0 ; int bottom = n ;
+        int num = 1 ;
+        int lastNum = (int)Math.pow(n,2);
+        System.out.println(lastNum);
+        while(num <= lastNum){
+            for(int i = top ; i < bottom ; i++){
                 answer[top][i] = num;
                 num++;
             }
-            top++;
+            bottom--;
             
-            for(int i = top ; i <= left ; i++){
-                answer[i][left] = num;
+            for(int i = right+1 ; i < left ; i++){
+                answer[i][bottom] = num;
                 num++;
             }
-            left--;
+            right++;
+            
             if(right<=left){
-                for(int i = left ; i >= right ; i--){
-                    answer[bottom][i] =num;
+                for(int i = bottom-1 ; i >= top ; i--){
+                    answer[bottom][i] = num;
                     num++;
                 }
-                bottom--;
+                top++;
+                
             }
-            
             if(top<=bottom){
-                for(int i = bottom ; i >= top ; i--){
-                    answer[i][right] = num;
+                for(int i = left-2 ; i >= right ; i--){
+                    answer[i][right-1]= num;
                     num++;
                 }
-                right++;
+                left--;
             }
-            
             
         }
-        
         return answer;
     }
 }
