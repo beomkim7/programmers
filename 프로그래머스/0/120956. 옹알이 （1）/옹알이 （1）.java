@@ -1,17 +1,21 @@
 class Solution {
     public int solution(String[] babbling) {
         int answer = 0;
-        for(String check : babbling){
-            check = check.replace("aya"," ");
-            check = check.replace("ye"," ");
-            check = check.replace("woo"," ");
-            check = check.replace("ma"," ");
-            check = check.trim();
-            System.out.println(check);
-            if(check.isEmpty()){
-                answer += 1;                
+        
+        for(String ch : babbling){
+            ch = ch.replace("aya"," ");
+            ch = ch.replace("ye"," ");
+            ch = ch.replace("woo"," ");
+            ch = ch.replace("ma"," ");
+            ch = ch.trim();
+            
+            if(ch.equals("")){
+                answer += 1;
+                
             }
+            
         }
+        
         return answer;
     }
 }
