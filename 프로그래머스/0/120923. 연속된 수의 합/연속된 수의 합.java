@@ -1,16 +1,16 @@
+import java.util.*;
 class Solution {
-    public int[] solution(int num, int total) {
-        int[] answer = new int [num];
-        int start = 0;
-        if(total%num==0){
-            start = (total/num)-(num/2);
-        }else{
-            start = (total/num)-(num/2)+1;
-        }
+    public List <Integer> solution(int num, int total) {
+        List <Integer> answer = new ArrayList();
         
-        for(int i = 0 ; i < num ; i++){
-            answer[i] = start;
-            start++;
+        int minus = num/2;
+        int check = 0;
+        if(total % num ==0)check = total / num;
+        else check = total / num+1;
+        int start = check-minus;
+        
+        for(int i = start ; i < start+num ; i++){
+            answer.add(i);
         }
         
         return answer;
