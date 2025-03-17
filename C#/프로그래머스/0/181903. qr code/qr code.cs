@@ -1,14 +1,10 @@
 using System;
-
+using System.Linq;
 public class Solution {
     public string solution(int q, int r, string code) {
             string answer = "";
 
-            for(int i = 0; i < code.Length; i++)
-            {
-                if (i % q == r)
-                    answer += code[i];
-            }
+            answer = new string(code.Where((x, index) => index % q == r).ToArray());
             
             return answer;
     }
