@@ -2,15 +2,16 @@ using System;
 
 public class Solution {
     public int solution(int n) {
-    int answer = 1;
-    int check = 1;
-
-    while (check * (answer + 1) <= n)
-    {
-        answer++;
-        check *= answer;
-    }
-
-    return answer;
+            int answer = 0;
+            int check = 1;
+            
+            while(check <= n)
+            {
+                check *= (answer + 1);
+                answer++;
+            }
+answer--;
+            if (n < 2) answer = 1;
+            return answer;
     }
 }
