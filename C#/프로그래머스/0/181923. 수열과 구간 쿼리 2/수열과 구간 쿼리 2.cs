@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
 public class Solution {
     public int[] solution(int[] arr, int[,] queries) {
-            List<int> answer = new List<int>();
+            List<int> lst = new List<int>();
+                    
 
             for(int i = 0; i < queries.GetLength(0); i++)
             {
@@ -10,17 +13,14 @@ public class Solution {
                 int end = queries[i, 1];
                 int check = queries[i, 2];
 
-                int temp = -1;
-                for(int j = start; j <= end; j++)
-                {
-                    if (arr[j] > check && temp == -1) temp = arr[j];
-                    else if (arr[j] > check && arr[j] < temp) temp = arr[j];
-                }
-
-                answer.Add(temp);
-
+                int num = arr.Skip(start)
+                            .Take(end - start + 1)
+                            .Where(x => x > check)
+                            .DefaultIfEmpty(-1)
+                            .Min();
+                lst.Add(num);
             }
 
-            return answer.ToArray();
+            return lst.ToArray();
     }
 }
