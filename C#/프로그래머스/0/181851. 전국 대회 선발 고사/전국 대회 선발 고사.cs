@@ -4,17 +4,18 @@ using System.Linq;
 
 public class Solution {
     public int solution(int[] rank, bool[] attendance) {
-int answer = 0;
-            var lst = new List<(int rank, int index)>();
+            int answer = 0;
 
-            for(int i = 0; i < rank.Length; i++)
-            {
-                if (!attendance[i]) continue;
-                lst.Add((rank[i], i));
-            }
+            Dictionary<int, int> dict = new Dictionary<int, int>();
 
-            var ansList = lst.OrderBy(x => x.rank).Select(x => x.index).Take(3).ToArray();
-            answer = 10000 * ansList[0] + 100 * ansList[1] + ansList[2];
+            int[] rankIndex = Enumerable.Range(0, rank.Length).ToArray();
+            for(int i = 0; i < rank.Length;i++)
+                if (attendance[i])                
+                    dict.Add(rank[i], rankIndex[i]);
+
+            var sorted = dict.OrderBy(x => x.Key).Select(x => x.Value).ToArray();
+
+                answer += sorted[0]*10000 + sorted[1] * 100 +sorted[2];
 
             return answer;
     }
