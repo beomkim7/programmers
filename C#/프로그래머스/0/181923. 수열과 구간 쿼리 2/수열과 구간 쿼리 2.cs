@@ -1,26 +1,26 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 public class Solution {
     public int[] solution(int[] arr, int[,] queries) {
-            List<int> lst = new List<int>();
-                    
+            int length = queries.GetLength(0);
+            int[] answer = new int[length];
 
-            for(int i = 0; i < queries.GetLength(0); i++)
+            for(int i = 0; i < length; i++)
             {
                 int start = queries[i, 0];
                 int end = queries[i, 1];
                 int check = queries[i, 2];
 
-                int num = arr.Skip(start)
-                            .Take(end - start + 1)
-                            .Where(x => x > check)
-                            .DefaultIfEmpty(-1)
-                            .Min();
-                lst.Add(num);
+                int temp = -1;
+
+                for(int j = start; j <= end; j++)
+                {
+                    if (arr[j] > check && temp == -1) temp = arr[j];
+                    else if (arr[j] > check && arr[j] < temp) temp = arr[j];
+                }
+                answer[i] = temp;
             }
 
-            return lst.ToArray();
+            return answer;
     }
 }
