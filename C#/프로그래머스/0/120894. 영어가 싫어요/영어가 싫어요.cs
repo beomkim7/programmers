@@ -1,20 +1,16 @@
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 public class Solution {
     public long solution(string numbers) {
             long answer = 0;
+            string[] checkArr = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
+            Dictionary<string, int> dict = checkArr
+                                        .Select((key, index) => new { key, index })
+                                        .ToDictionary(x => x.key, x => x.index);
 
-            string[] check = new string[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
-            Dictionary<string, int> dict = new Dictionary<string, int>();
-
-            for (int i = 0; i < check.Length; i++)
-                dict.Add(check[i], i);
-
-            for(int i = 0; i < check.Length; i++)            
-                numbers = numbers.Replace(check[i], dict[check[i]].ToString());
-            answer = long.Parse(numbers);
-        
-        return answer;
+            foreach (var pair in dict)
+                numbers = numbers.Replace(pair.Key, pair.Value.ToString());
+            return long.Parse(numbers);
     }
 }
