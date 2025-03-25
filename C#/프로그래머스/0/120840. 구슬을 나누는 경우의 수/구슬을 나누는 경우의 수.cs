@@ -2,15 +2,13 @@ using System;
 
 public class Solution {
     public int solution(int balls, int share) {
-        if (balls < share) return 0;  // 예외 처리
+            double answer = 1;
 
-        long answer = 1; // 오버플로우 방지를 위해 long 사용
+            for (int i = 1; i <= balls; i++) answer *= i;
+            for (int i = 1; i <= share; i++) answer /= i;
+            for (int i = 1; i <= balls - share; i++) answer /= i;
 
-        for (int i = 0; i < share; i++) {
-            answer *= (balls - i);
-            answer /= (i + 1);
-        }
-
-        return (int) answer; // int 범위 내에서 변환
+            
+return Convert.ToInt32(answer);
     }
 }
