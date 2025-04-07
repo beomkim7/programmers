@@ -6,14 +6,15 @@ public class Solution {
 
             for(int i = 0; i < num_list.Length; i++)
             {
-                int temp = num_list[i];
-                while (temp > 1)
+                while (num_list[i] != 1)
                 {
-                    temp /= 2;
+                    if (num_list[i] % 2 == 0)
+                        num_list[i] = num_list[i] / 2;
+                    else
+                        num_list[i] = (num_list[i]-1) / 2;
                     answer++;
                 }
             }
-                
 
             return answer;
     }
