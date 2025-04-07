@@ -1,19 +1,18 @@
 using System;
-using System.Linq;
+
 public class Solution {
     public int[] solution(int[] arr) {
-            int[] check = arr.Select((value, index) => new { value, index })
-                .Where(x => x.value == 2)
-                .Select(x => x.index)
-                .ToArray();
-            int start = check.FirstOrDefault();
-            int last = check.LastOrDefault();
-            if (check.Length == 0) return new int[] { -1 };
-            else if(check.Length == 1) return new int[] { 2 };
+int st = Array.IndexOf(arr, 2);
+            int ed = Array.LastIndexOf(arr, 2);
+
+            if (st == -1) return new int[] { -1 };
+            else if (st == ed) return new int[] { 2 };
             else
             {
-                int[] result = Enumerable.Range(start, last-start+1).Select(x => arr[x]).ToArray();
-                return result;
+                int[] answers = new int[ed - st + 1];          
+                Array.Copy(arr, st, answers, 0, ed - st + 1);  
+
+                return answers;
 
             }
     }
