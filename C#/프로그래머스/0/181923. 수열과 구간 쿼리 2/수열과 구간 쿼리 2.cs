@@ -1,26 +1,23 @@
 using System;
-
+using System.Collections.Generic;
+using System.Linq;
 public class Solution {
     public int[] solution(int[] arr, int[,] queries) {
-            int length = queries.GetLength(0);
-            int[] answer = new int[length];
+            int[] answer = new int[queries.GetLength(0)];
 
-            for(int i = 0; i < length; i++)
+            for(int i = 0; i < queries.GetLength(0); i++)
             {
-                int start = queries[i, 0];
-                int end = queries[i, 1];
-                int check = queries[i, 2];
+                List<int> check = new List<int>();
+                int st = queries[i, 0];
+                int ed = queries[i, 1];
+                for (int j = st; j <= ed; j++)
+                    if (arr[j] > queries[i, 2]) check.Add(arr[j]);
 
-                int temp = -1;
-
-                for(int j = start; j <= end; j++)
-                {
-                    if (arr[j] > check && temp == -1) temp = arr[j];
-                    else if (arr[j] > check && arr[j] < temp) temp = arr[j];
-                }
-                answer[i] = temp;
+                if(check.Count>0)
+                    answer[i] = check.Min();
+                else
+                    answer[i] = -1;
             }
-
             return answer;
     }
 }
