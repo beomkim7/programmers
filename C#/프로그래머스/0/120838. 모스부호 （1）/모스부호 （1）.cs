@@ -2,25 +2,20 @@ using System;
 using System.Collections.Generic;
 public class Solution {
     public string solution(string letter) {
-            string answer = "";
+string answer = "";
+            List<char> Clst = new List<char>();
+            for (char i = 'a'; i <= 'z'; i++)
+                Clst.Add(i);
 
-            Dictionary<string, string> dict = new Dictionary<string, string>();
-string morse = @"'.-':'a','-...':'b','-.-.':'c','-..':'d','.':'e','..-.':'f','--.':'g','....':'h','..':'i','.---':'j','-.-':'k','.-..':'l','--':'m','-.':'n','---':'o','.--.':'p','--.-':'q','.-.':'r','...':'s','-':'t','..-':'u','...-':'v','.--':'w','-..-':'x','-.--':'y','--..':'z'";
+            string[] morse = { ".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.." };
 
-            string[] moresArr = morse.Replace(@"'", "").Split(',');
+            Dictionary<string, char> dict = new Dictionary<string, char>();
+            for (int i = 0; i < Clst.Count; i++)
+                dict.Add(morse[i], Clst[i]);
 
-            for (int i = 0; i < moresArr.Length; i++)
-            {
-                dict.Add(moresArr[i].Split(':')[0], moresArr[i].Split(':')[1]);
-            }
-
-            string[] letterArr = letter.Split(' ');
-            foreach(var x in letterArr)
-            {
-                answer += dict[x];
-            }
-
-
+            string[] letters = letter.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < letters.Length;i++)
+                answer += dict[letters[i]];
             return answer;
     }
 }
