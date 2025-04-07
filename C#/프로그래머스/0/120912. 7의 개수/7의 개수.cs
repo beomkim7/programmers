@@ -1,8 +1,8 @@
-using System;
-using System.Linq;
+using System;using System.Linq;
+
 public class Solution {
     public int solution(int[] array) {
-int answer = string.Join("", array).Count(x => x == '7');
-            return answer;
+        int answer = array.Sum(x=>x.ToString().Where(y=>y.ToString()=="7").Count());
+        return answer;
     }
 }
