@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 public class Solution {
     public string solution(string s) {
-string answer = "";
+            string answer = "";
             Dictionary<char, int> dict = new Dictionary<char, int>();
-            for(int i = 0; i < s.Length; i++)
+
+            for (int i = 0; i < s.Length; i++)
             {
-                if (dict.ContainsKey(s[i])) dict[s[i]] += 1;
+                if (dict.ContainsKey(s[i])) dict[s[i]]++;
                 else dict.Add(s[i], 1);
             }
 
