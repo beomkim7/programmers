@@ -1,10 +1,12 @@
 using System;using System.Linq;
 
+
 public class Solution {
     public int solution(string[] strArr) {
-            int answer = strArr.GroupBy(x=>x.Length)
-                                .OrderByDescending(x=>x.Count())
-                                .First().Count();
-            return answer;
+int[] intArr = new int[31];
+            for (int i = 0; i < strArr.Length; i++)
+                intArr[strArr[i].Length] += 1;
+
+            return intArr.Max();
     }
 }
