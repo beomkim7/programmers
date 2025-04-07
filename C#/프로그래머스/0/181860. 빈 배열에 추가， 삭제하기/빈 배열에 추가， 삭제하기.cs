@@ -4,15 +4,12 @@ using System.Linq;
 public class Solution {
     public int[] solution(int[] arr, bool[] flag) {
             List<int> answer = new List<int>();
-
             for(int i = 0; i < arr.Length; i++)
             {
                 if (flag[i])
-                    for (int j = 0; j < arr[i] * 2; j++)
-                        answer.Add(arr[i]);
+                    answer.AddRange(Enumerable.Repeat(arr[i], arr[i] * 2));
                 else
-                    for (int j = 0; j < arr[i]; j++)
-                        answer.RemoveAt(answer.Count() - 1);
+                    answer.RemoveRange(answer.Count()-arr[i],arr[i]);
             }
 
             return answer.ToArray();
