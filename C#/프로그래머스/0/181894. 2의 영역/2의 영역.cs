@@ -1,19 +1,23 @@
-using System;
+using System;using System.Linq;using System.Collections.Generic;
 
 public class Solution {
     public int[] solution(int[] arr) {
-int st = Array.IndexOf(arr, 2);
-            int ed = Array.LastIndexOf(arr, 2);
+            int[] answer = arr.Select((index,order)=>new {index,order })
+                              .Where(x=>x.index == 2)
+                              .Select(x=>x.order)
+                              .ToArray();
 
-            if (st == -1) return new int[] { -1 };
-            else if (st == ed) return new int[] { 2 };
+            int st = answer.FirstOrDefault();
+            int ed = answer.LastOrDefault();
+
+            List<int> result = new List<int>();
+            if (st == 0 && ed ==0) result.Add(-1);
+            else if(ed == st) result.Add(2); 
             else
             {
-                int[] answers = new int[ed - st + 1];          
-                Array.Copy(arr, st, answers, 0, ed - st + 1);  
-
-                return answers;
-
+                               for (int i = st; i <= ed; i++) result.Add(arr[i]);
             }
+
+            return result.ToArray();
     }
 }
