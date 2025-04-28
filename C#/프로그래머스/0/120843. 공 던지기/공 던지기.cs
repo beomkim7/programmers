@@ -2,10 +2,10 @@ using System;
 
 public class Solution {
     public int solution(int[] numbers, int k) {
-            int answer = 0;
+int answer = 0;
+                answer = numbers[((k-1) * 2) % numbers.Length];
+            
 
-            int length = 2 * (k - 1);
-                answer = numbers[length % numbers.Length];
             return answer;
     }
 }
