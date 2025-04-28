@@ -1,22 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System;using System.Linq;
+
 public class Solution {
     public int[] solution(int[] arr, int[,] queries) {
-            int[] answer = new int[queries.GetLength(0)];
+            int length = queries.GetLength(0);
+            int[] answer = new int[length];
 
-            for(int i = 0; i < queries.GetLength(0); i++)
+            for(int i = 0; i < length; i++)
             {
-                List<int> check = new List<int>();
-                int st = queries[i, 0];
-                int ed = queries[i, 1];
-                for (int j = st; j <= ed; j++)
-                    if (arr[j] > queries[i, 2]) check.Add(arr[j]);
+                int start = queries[i, 0];
+                int end = queries[i, 1];
+                int check = queries[i, 2];
 
-                if(check.Count>0)
-                    answer[i] = check.Min();
-                else
-                    answer[i] = -1;
+                answer[i] = Enumerable.Range(start, end - start +1).Select(x => arr[x]).Where(x => x > check).DefaultIfEmpty(-1).Min();
             }
             return answer;
     }
