@@ -1,24 +1,18 @@
-using System;
+using System;using System.Linq;
 
 public class Solution {
     public string solution(string my_string, int[,] queries) {
             string answer = "";
-
+            
             for(int i = 0; i < queries.GetLength(0); i++)
             {
-                int start = queries[i, 0];
-                int end = queries[i, 1];
-                string arr = "";
-                string reverseArr = "";
+                int st = queries[i, 0];
+                int ed = queries[i, 1] - st + 1;
 
-                for (int j = start; j <= end; j++) arr += my_string[j];
-                for (int k = arr.Length - 1; k >= 0; k--) reverseArr += arr[k];
-
-                my_string = my_string.Remove(start, end-start+1);
-                my_string = my_string.Insert(start, reverseArr) ;
-
+                string change = new string(my_string.Substring(st, ed).Reverse().ToArray());
+                my_string = my_string.Remove(st, ed)
+                                    .Insert(st,change);
             }
-
             return my_string;
     }
 }
