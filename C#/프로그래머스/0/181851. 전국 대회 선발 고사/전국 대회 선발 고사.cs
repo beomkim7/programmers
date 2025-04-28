@@ -1,17 +1,12 @@
 using System;
 using System.Linq;
-using System.Collections.Generic;
 public class Solution {
     public int solution(int[] rank, bool[] attendance) {
-            int answer = 0;
-            Dictionary<int, int> dict = new Dictionary<int, int>();
-            for(int i = 0; i < rank.Length; i++)
-                if (attendance[i]) dict.Add(rank[i], i);
+            var dict = rank.Select((value,index)=>new {value=value,index=index })
+                .Where(x => attendance[x.index])
+                .OrderBy(x=>x.value);
 
-            var sorted = dict.OrderBy(x => x.Key).Select(x=>x.Value).ToArray();
-
-            answer = sorted[0] * 10000 + sorted[1] * 100 + sorted[2];          
-
+            int answer = dict.ElementAt(0).index * 10000 + dict.ElementAt(1).index * 100 + dict.ElementAt(2).index;
             return answer;
     }
 }
