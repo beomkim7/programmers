@@ -1,15 +1,23 @@
 using System;
 using System.Collections.Generic;
+
 public class Solution {
     public int[] solution(int l, int r) {
-            List<int> answer = new List<int>();
-
-            for(int i = l; i <= r; i++)
+            List<int> lst = new List<int>();
+            for(int i = l;i<=r;i++)
             {
-                string check = i.ToString().Replace("5", " ").Replace("0", " ");
-                if (check.Trim() == "") answer.Add(i);
+                string check = i.ToString();
+                int cnt = 0;
+                while (cnt < check.Length)
+                {
+                    check = check.Replace("5", "").Trim();
+                    check = check.Replace("0", "").Trim();
+                    cnt++;
+                }
+                if (string.IsNullOrEmpty(check)) lst.Add(i);
             }
-                    if (answer.Count == 0) answer.Add(-1);
-            return answer.ToArray();
+            int[] answer = lst.Count == 0? new int[] { -1} :lst.ToArray();
+
+            return answer;
     }
 }
