@@ -1,41 +1,24 @@
 using System;
 
 public class Solution {
-    public int solution(int a, int b)         {
-            int answer = 1;
-
-            int makeGCD = gcd(a, b);
-            if(makeGCD != 1)
+        public int solution(int a, int b)
+        {
+            int answer = 0;
+            int check = GDC(a, b);
+            b /= check;
+            while (b!=1)
             {
-                a /= makeGCD;
-                b /= makeGCD;
+                if (b % 2 == 0) b /= 2;
+                else if (b % 5 == 0) b /= 5;
+                else break;
             }
-
-            while (b > 1)
-            {
-                if (b % 2 == 0)
-                {
-                    b /= 2;
-                    continue;
-                }
-                else if (b % 5 == 0)
-                {
-                    b /= 5;
-                    continue;
-                }
-                else
-                {
-                    answer = 2;
-                    break;
-                }
-            }
-
+            answer = b == 1 ? 1 : 2;
             return answer;
         }
 
-        public int gcd(int a , int b)
+        public int GDC(int a, int b) //7,20     11,22                                           12,21
         {
             if (b == 0) return a;
-            return gcd(b, a % b);
+            else return GDC(b, a%b); // 20,7 => 7,6 => 6,1 =>1,1        22,11=>11,0             21,9=> 9,3 => 3,0=>>7
         }
 }
