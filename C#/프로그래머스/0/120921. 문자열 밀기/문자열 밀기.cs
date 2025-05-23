@@ -1,21 +1,24 @@
 using System;
-
+using System.Collections.Generic;
+using System.Linq;
 public class Solution {
-    public int solution(string A, string B) {
+    public int solution(string A, string B)         {
             int answer = 0;
-
-            for(int i = 0; i < A.Length; i++)
+            if (A == B) 
+                return answer;
+            while (answer < A.Length)
             {
-                if (A.Equals(B)) break;
-
-                string temp = B.Substring(0, 1);
-                B = B.Remove(0, 1) + temp;
-
+                
+                List<char> index = A.ToCharArray().ToList();
+                char save = index[A.Length - 1];
+                index.RemoveAt(A.Length - 1);
+                index.Insert(0, save);
+                A = new string(index.ToArray());
                 answer++;
+                if (A == B) break;
+
             }
-
-            if (A.Length == answer) answer = -1;
-
+        if (A != B) answer = -1;
             return answer;
-    }
+        }
 }
