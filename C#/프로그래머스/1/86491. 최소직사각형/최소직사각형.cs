@@ -3,19 +3,20 @@ using System;
 public class Solution {
     public int solution(int[,] sizes) {
             int answer = 0;
-            int max = 0;
-            int min = 0;
+
+            int maxV = 0;
+            int minV = 0;
 
             for(int i = 0; i < sizes.GetLength(0); i++)
             {
-                int big = Math.Max(sizes[i, 0], sizes[i, 1]);
-                int small = Math.Min(sizes[i, 0], sizes[i, 1]);
+                int maxN = Math.Max(sizes[i, 0], sizes[i, 1]);
+                int minN = Math.Min(sizes[i, 0], sizes[i, 1]);
 
-                max = Math.Max(max, big);
-                min = Math.Max(min, small);
+                maxV = Math.Max(maxV, maxN);
+                minV = Math.Max(minV, minN);
             }
+            answer = maxV * minV;
 
-            answer = max * min;
 
             return answer;
     }
