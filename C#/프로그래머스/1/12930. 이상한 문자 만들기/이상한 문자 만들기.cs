@@ -1,26 +1,27 @@
-using System.Text;
+using System;using System.Text;
 public class Solution {
-public string solution(string s)
-{
-    StringBuilder answer = new StringBuilder();
-    int check = 0;
+    public string solution(string s) {
+            StringBuilder answer = new StringBuilder();
+                int num = 0;
+            for(int i = 0; i < s.Length; i++)
+            {
+                char check = s[i];
 
-    for (int i = 0; i < s.Length; i++)
-    {
-        if (s[i] == ' ')
-        {
-            answer.Append(" ");
-            check = 0; // 단어 경계 초기화
-        }
-        else
-        {
-            if (check % 2 == 0) answer.Append(char.ToUpper(s[i]));
-            else answer.Append(char.ToLower(s[i]));
-            check++;
-        }
+                if (check == ' ')
+                {
+                    num = 0;
+                    answer.Append(" ");
+                }
+                else
+                {
+                    if (num % 2 == 0) answer.Append(char.ToUpper(check));
+                    else answer.Append(char.ToLower(check));
+                    num++;
+                }
+
+            }
+
+
+            return answer.ToString();
     }
-
-    return answer.ToString();
-}
-
 }
