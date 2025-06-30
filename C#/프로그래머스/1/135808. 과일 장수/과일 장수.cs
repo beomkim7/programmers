@@ -4,23 +4,19 @@ public class Solution {
     public int solution(int k, int m, int[] score) {
             int answer = 0;
 
-            int[] check = new int[m];
-            int count = 0;
-            score = score.OrderByDescending(x => x).ToArray();
-
-            for(int i =0; i < score.Length / m; i++)
+            score = score.OrderByDescending(x => x)
+                        .ToArray();
+            
+            
+            for(int i = 0; i < score.Length/m; i++)
             {
-                count = 0;
-                for (int j = i * m; j < i*m + m; j++)
+                int[] iArr = new int[m];
+                for (int j = 0; j < m; j++)
                 {
-                    check[count] = score[j];
-                    //Console.WriteLine(check[count]);
-                    count++;
+                    iArr[j] = score[i * m + j];
                 }
-
-                answer += check.Min() * m;
+                answer += iArr.Min() * m;
             }
-
 
             return answer;
     }
