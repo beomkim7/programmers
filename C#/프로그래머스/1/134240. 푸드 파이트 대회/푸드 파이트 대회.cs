@@ -1,15 +1,17 @@
 using System;
 using System.Linq;
+using System.Text;
 public class Solution {
     public string solution(int[] food) {
-            string answer = "";
-            string first = "";
-            for(int i = 1; i < food.Length; i++)
-                for (int j = 0; j < food[i]/2; j++)
-                    first += i.ToString();
+            StringBuilder answer = new StringBuilder();
 
-            answer += first + "0" + new string(first.Reverse().ToArray());                        
+            for (int i = 1; i < food.Length; i++)
+                for (int j = 0; j < food[i] / 2; j++)
+                    answer.Append(i);
+            
+            string reverse = new string(answer.ToString().Reverse().ToArray());
+            answer.AppendFormat("0{0}", reverse);
 
-            return answer;
+            return answer.ToString();
     }
 }
