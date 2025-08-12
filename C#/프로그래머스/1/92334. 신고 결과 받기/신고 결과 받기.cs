@@ -1,62 +1,34 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
+public class Solution {
+    public int[] solution(string[] id_list, string[] report, int k) {
+int length = id_list.Length;
+            int[] answer = new int[length];
+            int[] receive = new int[length];
 
-public class Solution
-{
-    public int[] solution(string[] id_list, string[] report, int k)
-    {
-        // 1. 신고 기록을 정리하고, 신고당한 횟수를 집계합니다.
-        // reportedCount: 피신고자 -> 신고당한 횟수
-        Dictionary<string, int> reportedCount = new Dictionary<string, int>();
-        // reporterList: 신고자 -> 피신고자 리스트
-        Dictionary<string, List<string>> reporterList = new Dictionary<string, List<string>>();
-
-        foreach (string id in id_list)
-        {
-            reportedCount[id] = 0;
-            reporterList[id] = new List<string>();
-        }
-
-        foreach (string s in report.Distinct())
-        {
-            string[] parts = s.Split(' ');
-            string reporter = parts[0];
-            string reported = parts[1];
-
-            reporterList[reporter].Add(reported);
-            reportedCount[reported]++;
-        }
-
-        // 2. 정지 대상 유저를 식별합니다.
-        // bannedUsers: k회 이상 신고당한 유저 목록 (HashSet으로 탐색 속도 최적화)
-        HashSet<string> bannedUsers = new HashSet<string>();
-        foreach (var count in reportedCount)
-        {
-            if (count.Value >= k)
+            report = report.Distinct().ToArray();
+            foreach (string item in report)
             {
-                bannedUsers.Add(count.Key);
+                string received = item.Split(' ')[1];
+                int reportCnt = Array.IndexOf(id_list, received);
+
+                receive[reportCnt]++;
             }
-        }
 
-        // 3. 신고자별로 받을 메일 수를 계산합니다.
-        // answer: id_list 순서에 맞는 최종 결과
-        int[] answer = new int[id_list.Length];
-        for (int i = 0; i < id_list.Length; i++)
-        {
-            string reporter = id_list[i];
-            int mailCount = 0;
-            
-            foreach (string reportedUser in reporterList[reporter])
+            for (int i = 0; i < report.Length; i++)
             {
-                if (bannedUsers.Contains(reportedUser))
+                string report_str = report[i].Split(' ')[1];
+                int report_index = Array.IndexOf(id_list, report_str);
+
+                if (receive[report_index] >= k)
                 {
-                    mailCount++;
+                    string send_str = report[i].Split(' ')[0];
+                    int send_index = Array.IndexOf(id_list, send_str);
+                    answer[send_index]++;
                 }
             }
-            answer[i] = mailCount;
-        }
 
-        return answer;
+
+            return answer;
     }
 }
