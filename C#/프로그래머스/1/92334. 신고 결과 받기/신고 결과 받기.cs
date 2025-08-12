@@ -1,33 +1,32 @@
 using System;
 using System.Linq;
+
 public class Solution {
     public int[] solution(string[] id_list, string[] report, int k) {
 int length = id_list.Length;
             int[] answer = new int[length];
-            int[] receive = new int[length];
+            int[] receiver = new int[length];
 
             report = report.Distinct().ToArray();
-            foreach (string item in report)
+            foreach(string s in report)
             {
-                string received = item.Split(' ')[1];
-                int reportCnt = Array.IndexOf(id_list, received);
-
-                receive[reportCnt]++;
+                string reported = s.Split(' ')[1];
+                int reported_idx = Array.IndexOf(id_list, reported);
+                receiver[reported_idx]++;
             }
 
-            for (int i = 0; i < report.Length; i++)
+            for(int i = 0; i < report.Length; i++)
             {
-                string report_str = report[i].Split(' ')[1];
-                int report_index = Array.IndexOf(id_list, report_str);
+                string reported = report[i].Split(' ')[1];
+                int reported_idx = Array.IndexOf(id_list, reported);
 
-                if (receive[report_index] >= k)
+                if (receiver[reported_idx] >= k)
                 {
-                    string send_str = report[i].Split(' ')[0];
-                    int send_index = Array.IndexOf(id_list, send_str);
-                    answer[send_index]++;
+                    string reporter = report[i].Split(' ')[0];
+                    int reporter_idx = Array.IndexOf(id_list, reporter);
+                    answer[reporter_idx]++;
                 }
             }
-
 
             return answer;
     }
