@@ -1,95 +1,67 @@
 using System;
-
+using System.Linq;
 public class Solution {
-    public int[] solution(string[] park, string[] routes) {
-int[] answer = new int[2];
+public int[] solution(string[] park, string[] routes)
+        {
+            int garo = park[0].Length;
+            int sero = park.Length;
 
-            int rows = park.Length;
-            int cols = park[0].Length;
-
-            for(int y = 0; y < rows;y++)
-                for(int x = 0; x < cols;x++)
-                    if(park[y][x] == 'S')
-                    {
-                        answer[0] = y;
-                        answer[1] = x;
-                    }
-
+            int gaS = 0;
+            int seS = 0;
+            for(int i = 0; i < sero; i++)
+            {
+                if (park[i].Contains("S"))
+                {
+                    gaS = park[i].IndexOf('S');
+                    seS = i;
+                    break;
+                }
+            }
+            int[] answer = new int[] {seS,gaS};
+            
             foreach(string s in routes)
             {
-                int ny = answer[0];
-                int nx = answer[1];
+                string[] sArray = s.Split(' ').ToArray();
+                string dir = sArray[0];
+                int distance = int.Parse(sArray[1]);
 
-                string[] split = s.Split(' ');
-                string dir = split[0];
-                int move = int.Parse(split[1]);
-
-                bool Canmove = true;
-
+                int dx = 0;
+                int dy = 0;
                 switch (dir)
                 {
-                    case "N":
-                        ny -= move;
-                        if (ny >= 0)
-                        {
-                            for (int i = 1; i <= move; i++)
-                            {
-                                if (park[answer[0] - i][answer[1]] == 'X')
-                                    Canmove = false;
-                            }
-                        }
-                        else 
-                            Canmove = false;
-
-                        break;
-
-                    case "S":
-                        ny += move;
-                        if (ny < rows)
-                        {
-                            for (int i = 1; i <= move; i++)
-                                if (park[answer[0] + i][answer[1]] == 'X')
-                                    Canmove = false;
-                        }
-                        else 
-                            Canmove = false;
-                        break;
-
-                    case "W":
-                        nx -= move;
-                        if (nx >= 0)
-                        {
-                            for (int i = 1; i <= move; i++)
-                            {
-                                if (park[answer[0]][answer[1] - i] == 'X') Canmove = false;
-
-                            }
-                        }
-                                
-                        else Canmove = false;
-
-                        break;
-
-                    case "E":
-                        nx += move;
-                        if (nx < cols)
-                        {
-                            for (int i = 1; i <= move; i++)
-                                if (park[answer[0]][answer[1] + i]=='X') Canmove = false;
-                        }
-                        else Canmove = false;
-                        break;
-
+                    case "E": dx++; break;
+                    case "W": dx--; break;
+                    case "S": dy++; break;
+                    case "N": dy--; break;
                 }
-                if (Canmove)
+
+                int nextX = answer[1] + dx * distance;
+                int nextY = answer[0] + dy * distance;
+
+                bool check = true;
+                if(nextX < 0 || nextX >= garo || nextY < 0 || nextY >= sero) check = false;
+                else
                 {
-                    answer[0] = ny;
-                    answer[1] = nx;
+                    for (int i = 1; i <= distance; i++)
+                    {
+                        if (park[answer[0] + dy * i][answer[1] + dx * i] == 'X')
+                        {
+                            check = false;
+                            break;
+                        }
+                    }
                 }
+                
 
+                if (check)
+                {
+                    answer[0] = nextY;
+                    answer[1] = nextX;
+                }
+                
             }
 
 
             return answer;
-    }
+        }
 }
