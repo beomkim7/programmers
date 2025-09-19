@@ -1,54 +1,47 @@
 using System;
-using System.Globalization;
+
 public class Solution {
-    public int solution(int[] schedules, int[,] timelogs, int startday)
+public int solution(int[] schedules, int[,] timelogs, int startday)
         {
             int answer = 0;
 
-            for (int i = 0; i < schedules.Length; i++)
+            int length = schedules.Length;
+            
+            for(int i = 0; i < length; i++)
             {
                 bool check = true;
-                int checkday = startday;
+                int pixD = startday;
+                DateTime schedule = convertT(schedules[i].ToString()).AddMinutes(10);
 
-                for (int j = 0; j < timelogs.GetLength(1); j++)  // 열 순회인지 행 순회인지 확인 필요
+                for(int j = 0; j < timelogs.GetLength(1); j++)
                 {
-                    checkday = checkday > 7 ? 1 : checkday;
+                    if (pixD > 7) pixD = 1;
 
-                    if (checkday == 6 || checkday == 7)
+                    if (pixD == 6 || pixD == 7)
                     {
-                        checkday++;
+                        pixD++;
                         continue;
                     }
-
                     
-                    string startT = schedules[i].ToString();
-                    DateTime startDateTime = parseDT(startT).AddMinutes(10);
-
-                    
-                    string checkT = timelogs[i, j].ToString();
-                    DateTime checkDateTime = parseDT(checkT);
-
-                    if (startDateTime < checkDateTime)
+                    DateTime time = convertT(timelogs[i, j].ToString());
+                    if (schedule < time)
                     {
                         check = false;
                         break;
                     }
-
-                    checkday++;
+                    pixD++;
                 }
 
                 if (check) answer++;
+                
             }
 
             return answer;
-
         }
 
-        public DateTime parseDT(string st)
+        public DateTime convertT(string s)
         {
-            
-            if (st.Length == 3) st = "0" + st;
-            st = st.Insert(st.Length - 2, ":");            
-            return DateTime.ParseExact(st,"HH:mm",CultureInfo.InvariantCulture);
+            DateTime dt = Convert.ToDateTime(s.ToString().PadLeft(4, '0').Insert(2, ":"));
+            return dt;
         }
 }
