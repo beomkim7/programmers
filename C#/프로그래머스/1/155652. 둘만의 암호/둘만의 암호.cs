@@ -3,26 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 public class Solution {
     public string solution(string s, string skip, int index) {
-    string answer = "";
-    HashSet<char> skipSet = new HashSet<char>(skip);
+ string answer = "";
 
-    foreach (char ch in s)
-    {
-        char c = ch;
-        int count = 0;
+            foreach(char c in s)
+            {
+                List<char> cArray = new List<char>();
+                char check = c;
+                while (cArray.Count < index)
+                {
+                    check++;
+                    if (check > 'z') check = 'a';
+                    if (skip.Contains(check))
+                    {
+                        
+                        continue;
+                    }
+                    else cArray.Add(check);
+                }
+                answer += check;
 
-        while (count < index)
-        {
-            c++;
-            if (c > 'z') c = 'a';
+            }
 
-            if (!skipSet.Contains(c))
-                count++;
-        }
-
-        answer += c;
-    }
-
-    return answer;
+            return answer;
     }
 }
