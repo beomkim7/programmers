@@ -2,33 +2,30 @@ using System;
 
 public class Solution {
     public int[] solution(string[] keymap, string[] targets) {
-int length = targets.Length;
-            int[] answer = new int[length];
+ int[] answer = new int[targets.Length];
 
-            for(int i = 0; i < length; i++)
-            {
-                int sum = 0;                
-                for(int j = 0; j < targets[i].Length; j++)//["ABACD", "BCEFD"]	["ABCD","AABB"]
+            for(int i = 0; i < targets.Length; i++)
+            {                
+                for(int j = 0; j < targets[i].Length; j++)
                 {
-                    char c = targets[i][j];
-                    int minV = int.MaxValue;
-                    foreach(string st in keymap)
+                    int check = int.MaxValue;
+                    foreach (string s in keymap)
                     {
-                        int inV = st.IndexOf(c);
-                        if (inV != -1)
-                        {                            
-                            minV = Math.Min(minV, inV+1);
+                        int idx = s.IndexOf(targets[i][j]);
+                        if (idx !=-1 && idx < check)
+                        {
+                            check = idx;                            
                         }
                     }
-                    if (minV == int.MaxValue)
+                    if (check == int.MaxValue)
                     {
-                        sum = -1;
+                        answer[i] = -1;
                         break;
                     }
-                    sum += minV; 
+                    else answer[i] += check + 1;
                 }
-                answer[i] = sum;
             }
+
             return answer;
     }
 }
