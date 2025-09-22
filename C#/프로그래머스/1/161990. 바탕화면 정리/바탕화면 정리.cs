@@ -23,8 +23,7 @@ public class Solution {
                 }
             }
 
-            while (true)
-            {
+            
                 int check = 0;
                 foreach (string s in wallpaper)
                 {                    
@@ -36,8 +35,7 @@ public class Solution {
                         if (answer4 <= check) answer4 = check + 1;
                     }                    
                 }
-                break;
-            }
+             
 
             int value3 = 0;
             for(int i = wallpaper.Length - 1; i >= 0; i--)
