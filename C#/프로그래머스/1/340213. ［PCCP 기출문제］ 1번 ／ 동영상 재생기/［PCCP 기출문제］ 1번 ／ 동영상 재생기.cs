@@ -1,7 +1,7 @@
 using System;
 
 public class Solution {
- public string solution(string video_len, string pos, string op_start, string op_end, string[] commands)
+public string solution(string video_len, string pos, string op_start, string op_end, string[] commands)
         {
             string answer = "";
 
@@ -9,36 +9,35 @@ public class Solution {
             int now = toSecond(pos);
             int opS = toSecond(op_start);
             int opE = toSecond(op_end);
-                            if (now >= opS && now <= opE)
-                    now = opE;
+
+            now = now >= opS && now <= opE ? opE : now;
+
             foreach(string s in commands)
             {
-
                 if (s == "next")
                 {
-
                     now = Math.Min(now + 10, len);
                 }
                 else
                 {
                     now = Math.Max(now - 10, 0);
                 }
-                            if (now >= opS && now <= opE)
-                    now = opE;
+                now = now >= opS && now <= opE ? opE : now;
             }
-            answer = getSecond(now);
+
+            answer = ConverTime(now);
 
             return answer;
         }
 
         public int toSecond(string s)
         {
-            string[] parseS = s.Split(':');
-            return int.Parse(parseS[0]) * 60 + int.Parse(parseS[1]);
-        }
+            string[] sArr = s.Split(':');
 
-        public string getSecond(int i)
+            return (int.Parse(sArr[0])*60) + int.Parse(sArr[1]);
+        }
+        public string ConverTime(int i)
         {
-            return $"{i / 60:D2}:{i % 60:D2}";
+            return $"{i/60:D2}:{i%60:D2}";
         }
 }
