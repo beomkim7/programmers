@@ -1,8 +1,9 @@
 using System;
-using System.Linq;
+
 public class Solution {
-public int[] solution(string[] park, string[] routes)
-        {
+    public int[] solution(string[] park, string[] routes) {
+ int[] answer = new int[2];
+
             int garo = park[0].Length;
             int sero = park.Length;
 
@@ -11,57 +12,61 @@ public int[] solution(string[] park, string[] routes)
             for(int i = 0; i < sero; i++)
             {
                 if (park[i].Contains("S"))
-                {
-                    gaS = park[i].IndexOf('S');
-                    seS = i;
-                    break;
-                }
+                    for (int j = 0; j < garo; j++)
+                        if (park[i][j] == 'S')
+                        {
+                            gaS = j;seS = i;
+                            break;
+                        }
             }
-            int[] answer = new int[] {seS,gaS};
-            
+
             foreach(string s in routes)
             {
-                string[] sArray = s.Split(' ').ToArray();
-                string dir = sArray[0];
-                int distance = int.Parse(sArray[1]);
+                string[] sArr = s.Split(' ');
+                string dir = sArr[0];
 
                 int dx = 0;
                 int dy = 0;
+                int count = int.Parse(sArr[1]);
+
                 switch (dir)
                 {
-                    case "E": dx++; break;
-                    case "W": dx--; break;
-                    case "S": dy++; break;
-                    case "N": dy--; break;
+                    case "E":dx++; break;
+                    case "W":dx--; break;
+                    case "S":dy++; break;
+                    case "N":dy--; break;
                 }
 
-                int nextX = answer[1] + dx * distance;
-                int nextY = answer[0] + dy * distance;
+                int nextX = gaS + dx * count;
+                int nextY = seS + dy * count;
 
                 bool check = true;
-                if(nextX < 0 || nextX >= garo || nextY < 0 || nextY >= sero) check = false;
+                if (nextX < 0 || nextX >= garo || nextY < 0 || nextY >= sero)
+                {
+                    check = false;
+                    continue;
+                }
                 else
                 {
-                    for (int i = 1; i <= distance; i++)
+                    for (int i = 1; i <= count; i++)
                     {
-                        if (park[answer[0] + dy * i][answer[1] + dx * i] == 'X')
+                        if (park[seS + dy * i][gaS + dx * i] == 'X') 
                         {
                             check = false;
                             break;
                         }
                     }
                 }
-                
 
                 if (check)
                 {
-                    answer[0] = nextY;
-                    answer[1] = nextX;
+                    gaS = nextX;
+                    seS = nextY;
                 }
-                
             }
-
+            answer[0] = seS;
+            answer[1] = gaS;
 
             return answer;
-        }
+    }
 }
