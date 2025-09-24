@@ -1,35 +1,38 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Globalization;
+using System.Collections.Generic;
 public class Solution {
-    public int[] solution(string today, string[] terms, string[] privacies) {
-            int[] answer = new int[] { };
-            List<int> answerAdd = new List<int>();
-            DateTime todatDT = parseDT(today);
+    public int[] solution(string today, string[] terms, string[] privacies)
+        {
+            List<int> answer = new List<int>();
+
+            DateTime Dtoday = ConvertD(today);
+
             for(int i = 0; i < terms.Length; i++)
             {
-                string[] check = terms[i].Split(' ').ToArray();
+                string[] termArr = terms[i].Split(' ');
+
                 for(int j = 0; j < privacies.Length; j++)
                 {
-                    if (privacies[j].Contains(check[0]))
+                    if (privacies[j].Contains(termArr[0]))
                     {
-                        string stDT = privacies[j].Substring(0, 10);
-                        DateTime checkDT = parseDT(stDT);
-                        checkDT = checkDT.AddMonths(int.Parse(check[1]));
+                        string[] priArr = privacies[j].Split(' ');
+                        DateTime Edt = ConvertD(priArr[0]);
+                        Edt = Edt.AddMonths(int.Parse(termArr[1]));
 
-                        if (todatDT >= checkDT) answerAdd.Add(j+1);
+                        if (Edt <= Dtoday) answer.Add(j + 1);
                     }
                 }
 
             }
 
-            return answerAdd.OrderBy(x=>x).ToArray();
+
+            return answer.OrderBy(x=>x).ToArray();
         }
 
-        private DateTime parseDT(string st)
+        public DateTime ConvertD(string s)
         {
-            st = st.Replace(".", "/");
-            return DateTime.ParseExact(st, "yyyy/MM/dd", CultureInfo.InvariantCulture);
+            DateTime dt = Convert.ToDateTime(s.Replace('.','/'));
+            return dt;
         }
 }
