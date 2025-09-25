@@ -1,38 +1,38 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 public class Solution {
     public string solution(string[] survey, int[] choices) {
 string answer = "";
-
+            int length = survey.Length;
             Dictionary<string, List<int>> dict = new Dictionary<string, List<int>>();
             dict.Add("RT", new List<int> { 0, 0 });
             dict.Add("CF", new List<int> { 0, 0 });
             dict.Add("JM", new List<int> { 0, 0 });
             dict.Add("AN", new List<int> { 0, 0 });
 
-            for(int i = 0; i < survey.Length; i++)
+             for(int i = 0; i < length; i++)
             {
                 int score = Math.Abs(choices[i] - 4);
-                if (choices[i] < 4)
-                {
-                    char c = survey[i][0];
-                    string key = new string(survey[i].OrderBy(x => x).ToArray());
-                    int dictNum = key.IndexOf(c);
 
-                    dict[key][dictNum] += score;
-                }
-                else if(choices[i] > 4)
+
+                if (choices[i] > 4)
                 {
                     char c = survey[i][1];
-                    string key = new string(survey[i].OrderBy(x => x).ToArray());
-                    int dictNum = key.IndexOf(c);
+                    string check = new string(survey[i].OrderBy(x => x).ToArray());
+                    int num = check.IndexOf(c);
+                    dict[check][num] += score;
 
-                    dict[key][dictNum] += score;
+                }
+                else if (choices[i] < 4)
+                {
+                    char c = survey[i][0];
+                    string check = new string(survey[i].OrderBy(x => x).ToArray());
+                    int num = check.IndexOf(c);
+                    dict[check][num] += score;
                 }
             }
-            
+
             foreach(var a in dict)
             {
                 char first = a.Key[0];
@@ -42,7 +42,6 @@ string answer = "";
 
                 answer += firstN >= secondN ? first : second;
             }
-
             return answer;
     }
 }
