@@ -4,18 +4,18 @@ using System.Linq;
 
 public class Solution {
     public int solution(int[] ingredient) {
-            int answer = 0;
-            Stack<int> stack = new Stack<int>();
+int answer = 0;
+            Stack<int> st = new Stack<int>();
 
-            foreach(int i in ingredient)
+            foreach(int num in ingredient)
             {
-                stack.Push(i);
-                if(stack.Count >= 4)
+                st.Push(num);
+                if (st.Count >= 4)
                 {
-                    int[] check = stack.Take(4).Reverse().ToArray();
-                    if(check[0]==1&& check[1] == 2 && check[2] ==3 && check[3] == 1)
+                    int[] check = st.Take(4).Reverse().ToArray();
+                    if (check[0] == 1 && check[1] == 2 && check[2] == 3 && check[3] == 1)
                     {
-                        for (int j = 0; j < 4; j++) stack.Pop();
+                        for (int i = 0; i < 4; i++) st.Pop();
                         answer++;
                     }
                 }
