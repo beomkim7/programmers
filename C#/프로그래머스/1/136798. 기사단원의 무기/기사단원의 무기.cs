@@ -1,26 +1,28 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 public class Solution {
     public int solution(int number, int limit, int power) {
             int answer = 0;
-            List<int> check = new List<int>();
-            for(int i = 1; i <=number; i++)
+
+            int check = 1;
+            int[] arr = new int[number];
+            while (check <= number)
             {
                 int num = 0;
-                for(int j = 1; j*j <= i; j++)
+                for(int i = 1; i * i <= check; i++)
                 {
-                    if(i%j == 0)
+                    if (check % i == 0)
                     {
                         num++;
-                        if (j != i / j) num++;
-                    }
+                        if (i != check / i) num++;
+                    }                    
                 }
-                check.Add(num);
+                arr[check-1] = num;
+                check++;
             }
-Console.WriteLine(string.Join(",", check));
-            answer = check.Where(x => x <= limit).Sum();
-            answer += check.Where(x => x > limit).Count() * power;
+
+            answer += arr.Where(x => x <= limit).Sum();
+            answer += arr.Where(x => x > limit).Count() * power ;
 
             return answer;
     }
