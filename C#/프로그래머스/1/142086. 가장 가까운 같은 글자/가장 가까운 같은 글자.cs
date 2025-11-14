@@ -1,16 +1,25 @@
 using System;
-using System.Collections.Generic;
-
+using System.Linq;
 public class Solution {
     public int[] solution(string s) {
-            int[] answer = new int[s.Length];
-            Dictionary<char, int> dict = new Dictionary<char, int>();
-            for(int i = 0; i < s.Length; i++)
-            {
-                if (dict.ContainsKey(s[i])) answer[i] = i - dict[s[i]];
-                else answer[i] = -1;
+int length = s.Length;
+            int[] answer = new int[length];
+            char[] check = new char[s.Length];
 
-                dict[s[i]] = i;
+            for(int i = 0; i < length; i++)
+            {                
+                int num = 1;
+                if (check.Contains(s[i]))
+                    for (int j = i - 1; j >= 0; j--) 
+                    {
+                        if (s[i] == s[j])
+                        {
+                            answer[i] = num;
+                            break;
+                        }num++;
+                    }
+                else answer[i] = -1;
+                check[i] = s[i];
             }
 
             return answer;
