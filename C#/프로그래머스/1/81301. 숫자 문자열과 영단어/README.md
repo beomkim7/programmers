@@ -1,10 +1,10 @@
 # [level 1] 숫자 문자열과 영단어 - 81301 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/81301?language=csharp) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/81301) 
 
 ### 성능 요약
 
-메모리: 31.7 MB, 시간: 1.19 ms
+메모리: 31.7 MB, 시간: 1.23 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 06월 27일 10:24:55
+2025년 12월 03일 15:04:47
 
 ### 문제 설명
 
