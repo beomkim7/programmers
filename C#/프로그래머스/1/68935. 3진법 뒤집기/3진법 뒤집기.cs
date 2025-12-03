@@ -1,18 +1,20 @@
 using System;
-
+using System.Linq;
 public class Solution {
     public int solution(int n) {
             int answer = 0;
-            string Snum = "";
+            string result = "";
             while (n > 0)
             {
-                Snum += (n % 3).ToString();
+                result += (n%3).ToString();
                 n = n / 3;
             }
+            Console.WriteLine(result);            
+            for(int i = 0; i < result.Length; i++)
+            {
+                answer += int.Parse(result[i].ToString()) * (int)(Math.Pow(3.0, (result.Length -1- i)));//3  (result.Length - 1);
+            }
 
-            for (int i = 0; i < Snum.Length; i++)
-                answer += (int)(Math.Pow(3, Snum.Length - i - 1)) * int.Parse(Snum[i].ToString());
-            
             return answer;
     }
 }
