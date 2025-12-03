@@ -9,14 +9,14 @@ public class Solution {
 
             for(int i = 0; i < sizes.GetLength(0); i++)
             {
-                int maxN = Math.Max(sizes[i, 0], sizes[i, 1]);
-                int minN = Math.Min(sizes[i, 0], sizes[i, 1]);
+                int nowMax = Math.Max(sizes[i, 0], sizes[i, 1]);
+                int nowMin = Math.Min(sizes[i, 0], sizes[i, 1]);
 
-                maxV = Math.Max(maxV, maxN);
-                minV = Math.Max(minV, minN);
+                maxV = Math.Max(maxV, nowMax);
+                minV = Math.Max(minV, nowMin);
             }
-            answer = maxV * minV;
 
+            answer = maxV * minV;
 
             return answer;
     }
