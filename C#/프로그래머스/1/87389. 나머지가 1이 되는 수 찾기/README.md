@@ -1,10 +1,10 @@
 # [level 1] 나머지가 1이 되는 수 찾기 - 87389 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/87389?language=csharp) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/87389) 
 
 ### 성능 요약
 
-메모리: 31.1 MB, 시간: 3.85 ms
+메모리: 31.5 MB, 시간: 3.50 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 05월 30일 14:11:05
+2025년 12월 03일 17:30:57
 
 ### 문제 설명
 
