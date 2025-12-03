@@ -5,28 +5,36 @@ public class Solution {
     public int solution(int n, int[] lost, int[] reserve) {
 int answer = 0;
 
-            List<int> lostLst = lost.OrderBy(x => x).ToList();
-            List<int> reserveLst = reserve.OrderBy(x => x).ToList();
+            List<int> listLst = lost.ToList();
+            List<int> reserveLst = reserve.ToList();
 
-            List<int> inter = lostLst.Intersect(reserveLst).ToList();
-            lostLst = lostLst.Except(inter).ToList();
-            reserveLst = reserveLst.Except(inter).ToList();
-
+            List<int> Lst = new List<int>();
             
-            foreach(int r in reserveLst)
+            for(int i = 0; i < reserveLst.Count(); i++)            
+                if (listLst.Contains(reserveLst[i])) Lst.Add(reserveLst[i]);
+            
+            for(int i = 0; i < Lst.Count(); i++)
             {
-                for(int i = r - 1; i <= r + 1; i++)
-                {
-                    if (lostLst.Contains(i))
-                    {
-                       lostLst.Remove(i);                        
-                        break;
-                    }
-                }
+                listLst.Remove(Lst[i]);
+                reserveLst.Remove(Lst[i]);
             }
 
+            listLst = listLst.OrderBy(x => x).ToList();
+            reserveLst = reserveLst.OrderBy(x => x).ToList();
+            for(int i = 0; i < reserveLst.Count(); i++)
+            {
+                int beforCheck = reserveLst[i] - 1;
+                if (listLst.Contains(beforCheck))
+                {
+                    listLst.Remove(beforCheck);
+                    continue;
+                }
 
-            answer = n - lostLst.Count;
+                int afterCheck = reserveLst[i] + 1;
+                if (listLst.Contains(afterCheck)) listLst.Remove(afterCheck);
+            }
+
+            answer = n - listLst.Count();
 
             return answer;
     }
