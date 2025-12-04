@@ -1,35 +1,26 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 public class Solution {
     public string solution(string X, string Y) {
-string answer = "";
-            Dictionary<char, int> dict = new Dictionary<char, int>();
+            int[] XCheck = new int[10];
+            int[] YCheck = new int[10];
 
-            foreach(char c in Y)
+            foreach (char c in X) XCheck[c - '0']++;
+            foreach (char c in Y) YCheck[c - '0']++;
+
+            StringBuilder sb = new StringBuilder();
+
+            for(int i = 9; i >= 0; i--)
             {
-                if (dict.ContainsKey(c)) dict[c]++;
-                else dict[c] = 1;
+                int num = Math.Min(XCheck[i], YCheck[i]);
+                if (num > 0) sb.Append((char)(i + '0'), num);
             }
 
-            List<char> comm = new List<char>();
+            string answer = sb.ToString();
 
-            foreach(char c in X)
-            {
-                if (dict.ContainsKey(c) && dict[c] > 0)
-                {
-                    comm.Add(c);
-                    dict[c]--;
-                }
-            }
-
-            if (comm.Count > 0)
-            {
-                answer = new string(comm.OrderByDescending(x => x).ToArray());
-                if (int.TryParse(answer, out int result) && result == 0) answer = "0";
-            }
-            else answer = "-1";
-
-            return answer;
+            if (answer.Length==0) return "-1";
+            else if (answer.Length !=0 && answer.All(x=>x=='0')) return "0";
+            else return sb.ToString();      
     }
 }
