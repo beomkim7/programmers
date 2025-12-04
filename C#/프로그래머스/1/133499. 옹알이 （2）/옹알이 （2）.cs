@@ -3,44 +3,40 @@ using System;
 public class Solution {
     public int solution(string[] babbling) {
 int answer = 0;
-            string[] checkArr = new string[] { "aya", "ye", "woo", "ma" };
-            
-            
-            foreach (string s in babbling)
-            {
-                string prev = "";
-                string temp = s;
-                bool possible = true;
+            string[] st = new string[] { "aya", "ye", "woo", "ma" };
 
-                while (temp.Length > 0)
+            foreach(string s in babbling)
+            {
+                string temp = s;
+                string prev = "";
+                bool possible = true;
+                
+                while (temp.Length>0)
                 {
-                    bool matched = false;
-                    foreach(string st in checkArr)
+                    bool match = false;
+                    for(int i = 0; i < st.Length; i++)
                     {
-                        if (temp.StartsWith(st))
+                        if (temp.StartsWith(st[i]))
                         {
-                            if(prev == st)
+                            if (st[i] == prev)
                             {
                                 possible = false;
+                                match = false;   
                                 break;
                             }
-                            prev = st;
-                            temp = temp.Substring(st.Length);
-                            matched = true;
-                            break;
+                            match = true;
+                            prev = st[i];
+                            temp = temp.Substring(st[i].Length);
                         }
                     }
-
-                    if (!matched)
+                    if (!match)
                     {
-                        possible = false;
+                        possible = false;                    
                         break;
                     }
                 }
                 if (possible) answer++;
-
             }
-
 
             return answer;
     }
