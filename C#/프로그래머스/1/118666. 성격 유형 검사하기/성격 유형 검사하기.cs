@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+
 public class Solution {
-    public string solution(string[] survey, int[] choices) {
-string answer = "";
+    public string solution(string[] survey, int[] choices) {string answer = "";
             int length = survey.Length;
             Dictionary<string, List<int>> dict = new Dictionary<string, List<int>>();
             dict.Add("RT", new List<int> { 0, 0 });
@@ -11,7 +12,7 @@ string answer = "";
             dict.Add("JM", new List<int> { 0, 0 });
             dict.Add("AN", new List<int> { 0, 0 });
 
-             for(int i = 0; i < length; i++)
+            for (int i = 0; i < length; i++)
             {
                 int score = Math.Abs(choices[i] - 4);
 
@@ -33,7 +34,7 @@ string answer = "";
                 }
             }
 
-            foreach(var a in dict)
+            foreach (var a in dict)
             {
                 char first = a.Key[0];
                 char second = a.Key[1];
