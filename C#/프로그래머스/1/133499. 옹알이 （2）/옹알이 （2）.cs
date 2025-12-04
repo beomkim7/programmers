@@ -3,42 +3,44 @@ using System;
 public class Solution {
     public int solution(string[] babbling) {
 int answer = 0;
-            string[] stArr = new string[] { "aya", "ye", "woo", "ma" };
-
-            for(int i = 0; i < babbling.Length; i++)
+            string[] checkArr = new string[] { "aya", "ye", "woo", "ma" };
+            
+            
+            foreach (string s in babbling)
             {
-                string temp = babbling[i];
-                bool isVal = true;
                 string prev = "";
+                string temp = s;
+                bool possible = true;
 
                 while (temp.Length > 0)
-                {                    
+                {
                     bool matched = false;
-
-                    foreach(string st in stArr)
+                    foreach(string st in checkArr)
                     {
                         if (temp.StartsWith(st))
                         {
                             if(prev == st)
                             {
-                                isVal = false;
+                                possible = false;
                                 break;
                             }
-
-                            temp = temp.Substring(st.Length);
                             prev = st;
+                            temp = temp.Substring(st.Length);
                             matched = true;
                             break;
                         }
                     }
-                    if (!isVal || !matched)
+
+                    if (!matched)
                     {
-                        isVal = false;
+                        possible = false;
                         break;
                     }
                 }
-                if (isVal) answer++;
+                if (possible) answer++;
+
             }
+
 
             return answer;
     }
