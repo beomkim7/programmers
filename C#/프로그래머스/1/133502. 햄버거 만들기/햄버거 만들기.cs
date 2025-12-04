@@ -10,16 +10,18 @@ public class Solution {
             {
                 st.Push(i);
 
-                if (st.Count() >= 4)
+                if (st.Count >= 4)
                 {
-                    List<int> check = st.Take(4).Reverse().ToList();
-                    if(check.SequenceEqual(new List<int> { 1, 2, 3, 1 }))
+                    List<int> lst = st.Take(4).Reverse().ToList();
+
+                    if(lst.SequenceEqual(new List<int> {1,2,3,1 }))
                     {
                         answer++;
-                        for (int j = 0; j < check.Count(); j++) st.Pop();
+                        for (int j = 0; j < lst.Count; j++) st.Pop();
                     }
                 }
             }
+
             return answer;
     }
 }
