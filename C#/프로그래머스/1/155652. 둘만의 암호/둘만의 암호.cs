@@ -1,27 +1,26 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System;using System.Linq;
+
 public class Solution {
     public string solution(string s, string skip, int index) {
-StringBuilder sb = new StringBuilder();
-HashSet<char> skipSet = new HashSet<char>(skip);
+            string answer = "";
 
-foreach (char c in s)
-{
-    int check = 0;
-    char upc = c;
+            foreach(char c in s)
+            {
+                int count = 0;
+                char temp = c;
 
-    while (check < index)
-    {
-        upc++;
-        if (upc > 'z') upc = 'a';
-        if (!skipSet.Contains(upc)) check++;
-    }
+                while (count < index)
+                {
+                    if (temp == 'z') temp = 'a';
+                    else temp++;
 
-    sb.Append(upc);
-}
+                    if (skip.Contains(temp)) continue;
 
-return sb.ToString();
+                    count++;
+                }
+                answer += temp;
+            }
+
+            return answer;
     }
 }
