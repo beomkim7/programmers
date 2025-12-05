@@ -4,21 +4,33 @@ public class Solution {
     public int solution(string s) {
             int answer = 0;
 
-            for(int i = 0; i < s.Length; i++)
-            {
-                char c = s[i];
-                int num = 1;
-                int dif = 0;
+            char[] sArr = s.ToCharArray();
 
-                while(num != dif)
+            char now;
+            char prev = ' ';
+
+            int nowCnt = 0;
+            int differ = 0;
+            foreach(char c in sArr)
+            {
+                now = c;
+                if (now == prev || prev == ' ')
                 {
-                    if (i == s.Length - 1) break;
-                    if (c == s[i + 1]) num++;
-                    else dif++;
-                    i++;
+                    nowCnt++;
+                    prev = c;
                 }
-                answer++;
+                else differ++;
+
+                
+                if (nowCnt == differ)
+                {
+                    answer++;
+                    nowCnt = 0;
+                    differ = 0;
+                    prev = ' ';
+                }                
             }
+            if (prev != ' ') answer++;
 
             return answer;
     }
