@@ -1,47 +1,48 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 public class Solution {
     public string solution(string[] survey, int[] choices) {
-string answer = "";
-            Dictionary<string, List<int>> dict = new Dictionary<string, List<int>>();
+        string answer = "";
 
-            dict.Add("RT", new List<int> { 0, 0 });
-            dict.Add("CF", new List<int> { 0, 0 });
-            dict.Add("JM", new List<int> { 0, 0 });
-            dict.Add("AN", new List<int> { 0, 0 });
+            Dictionary<string, int[]> dict = new Dictionary<string, int[]>();
+
+            dict.Add("RT", new int[2]);
+            dict.Add("CF", new int[2]);
+            dict.Add("JM", new int[2]);
+            dict.Add("AN", new int[2]);
 
             for(int i = 0; i < survey.Length; i++)
-            {                
-                int value = Math.Abs(choices[i] - 4);
-                if (choices[i] < 4)
-                {
-                    char c = survey[i][0];
-                    string st = new string(survey[i].OrderBy(x => x).ToArray());
-                    int check = st.IndexOf(c);
-
-                    dict[st][check] += value;
-                }
-                else if (choices[i] > 4)
+            {
+                if (choices[i] > 4)
                 {
                     char c = survey[i][1];
                     string st = new string(survey[i].OrderBy(x => x).ToArray());
-                    int check = st.IndexOf(c);
 
-                    dict[st][check] += value;
+                    int cnt = st.IndexOf(c);
+                    dict[st][cnt] += choices[i] - 4;
+                }
+                else if (choices[i] < 4)
+                {
+                    char c = survey[i][0];
+                    string st = new string(survey[i].OrderBy(x => x).ToArray());
+
+                    int cnt = st.IndexOf(c);
+                    dict[st][cnt] += 4 - choices[i];
                 }
             }
 
             foreach(var v in dict)
             {
-                char f = v.Key[0];
-                char s = v.Key[1];
+                char first = v.Key[0];
+                char second = v.Key[1];
 
-                int fNo = v.Value[0];
-                int sNo = v.Value[1];
+                int firstNo = v.Value[0];
+                int secondNo = v.Value[1];
 
-                answer += fNo >= sNo ? f : s;
+                if (firstNo >= secondNo) answer += first;
+                else answer += second;
+
             }
 
             return answer;
