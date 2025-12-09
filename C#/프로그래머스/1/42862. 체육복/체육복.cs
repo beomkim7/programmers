@@ -1,40 +1,29 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 public class Solution {
     public int solution(int n, int[] lost, int[] reserve) {
 int answer = 0;
-
-            List<int> listLst = lost.ToList();
-            List<int> reserveLst = reserve.ToList();
-
-            List<int> Lst = new List<int>();
+            List<int> interArr = reserve.Intersect(lost).ToList();
             
-            for(int i = 0; i < reserveLst.Count(); i++)            
-                if (listLst.Contains(reserveLst[i])) Lst.Add(reserveLst[i]);
-            
-            for(int i = 0; i < Lst.Count(); i++)
-            {
-                listLst.Remove(Lst[i]);
-                reserveLst.Remove(Lst[i]);
-            }
 
-            listLst = listLst.OrderBy(x => x).ToList();
-            reserveLst = reserveLst.OrderBy(x => x).ToList();
-            for(int i = 0; i < reserveLst.Count(); i++)
+            List<int> reserArr = reserve.Except(interArr).OrderBy(x => x).ToList();
+            List<int> lostArr = lost.Except(interArr).OrderBy(x => x).ToList();
+
+            for(int i = 0; i < reserArr.Count; i++)
             {
-                int beforCheck = reserveLst[i] - 1;
-                if (listLst.Contains(beforCheck))
+                int first = reserArr[i] - 1;
+                int second = reserArr[i] + 1;
+                if (lostArr.Contains(first))
                 {
-                    listLst.Remove(beforCheck);
+                    lostArr.Remove(first);
                     continue;
                 }
+                else if (lostArr.Contains(second)) lostArr.Remove(second);
 
-                int afterCheck = reserveLst[i] + 1;
-                if (listLst.Contains(afterCheck)) listLst.Remove(afterCheck);
             }
-
-            answer = n - listLst.Count();
+            answer = n - lostArr.Count();
 
             return answer;
     }
