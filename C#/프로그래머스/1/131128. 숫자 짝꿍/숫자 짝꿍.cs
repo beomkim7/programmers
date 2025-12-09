@@ -1,26 +1,25 @@
 using System;
-using System.Linq;
 using System.Text;
 public class Solution {
     public string solution(string X, string Y) {
-            int[] XCheck = new int[10];
-            int[] YCheck = new int[10];
+StringBuilder sb = new StringBuilder();
 
-            foreach (char c in X) XCheck[c - '0']++;
-            foreach (char c in Y) YCheck[c - '0']++;
+            int[] Xarr = new int[10];
+            int[] Yarr = new int[10];
 
-            StringBuilder sb = new StringBuilder();
-
+            foreach (char c in X) Xarr[c - '0']++;
+            foreach (char c in Y) Yarr[c - '0']++;
+            
             for(int i = 9; i >= 0; i--)
             {
-                int num = Math.Min(XCheck[i], YCheck[i]);
-                if (num > 0) sb.Append((char)(i + '0'), num);
+                int cnt = Math.Min(Xarr[i], Yarr[i]);
+
+                if (cnt > 0) sb.Append(new string((char)(i + '0'), cnt));
             }
+            if (sb.Length == 0) return "-1";
+            if (sb[0] == '0') return "0";
 
-            string answer = sb.ToString();
 
-            if (answer.Length==0) return "-1";
-            else if (answer.Length !=0 && answer.All(x=>x=='0')) return "0";
-            else return sb.ToString();      
+            return sb.ToString();
     }
 }
