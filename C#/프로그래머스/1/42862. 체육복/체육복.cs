@@ -5,25 +5,23 @@ using System.Linq;
 public class Solution {
     public int solution(int n, int[] lost, int[] reserve) {
 int answer = 0;
-            List<int> interArr = reserve.Intersect(lost).ToList();
-            
 
-            List<int> reserArr = reserve.Except(interArr).OrderBy(x => x).ToList();
-            List<int> lostArr = lost.Except(interArr).OrderBy(x => x).ToList();
+            List<int> inter = reserve.Intersect(lost).ToList();
 
-            for(int i = 0; i < reserArr.Count; i++)
+            List<int> lostLst = lost.Except(inter).OrderBy(x => x).ToList();
+            List<int> reserveLst = reserve.Except(inter).OrderBy(x=>x).ToList();
+                        
+
+            for (int i = 0; i < reserveLst.Count; i++)
             {
-                int first = reserArr[i] - 1;
-                int second = reserArr[i] + 1;
-                if (lostArr.Contains(first))
-                {
-                    lostArr.Remove(first);
-                    continue;
-                }
-                else if (lostArr.Contains(second)) lostArr.Remove(second);
+                int before = reserveLst[i] - 1;
+                int after = reserveLst[i] + 1;
+
+                if (lostLst.Contains(before)) { lostLst.Remove(before); continue; }
+                else if (lostLst.Contains(after)) { lostLst.Remove(after); }
 
             }
-            answer = n - lostArr.Count();
+            answer = n - lostLst.Count();
 
             return answer;
     }
