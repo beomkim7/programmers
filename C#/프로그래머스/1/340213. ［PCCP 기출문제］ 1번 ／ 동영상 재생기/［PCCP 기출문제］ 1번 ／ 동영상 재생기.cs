@@ -5,39 +5,46 @@ public string solution(string video_len, string pos, string op_start, string op_
         {
             string answer = "";
 
-            int len = toSecond(video_len);
-            int now = toSecond(pos);
-            int opS = toSecond(op_start);
-            int opE = toSecond(op_end);
+            int len = ConvertToInt(video_len);
+            int now = ConvertToInt(pos);
+            int start = ConvertToInt(op_start);
+            int end = ConvertToInt(op_end);
 
-            now = now >= opS && now <= opE ? opE : now;
+            if (now >= start && now < end) now = end;
 
-            foreach(string s in commands)
+            foreach (string s in commands)
             {
                 if (s == "next")
                 {
-                    now = Math.Min(now + 10, len);
+                    now += 10;
+                    if (now > len) now = len;
+                    if (now >= start && now < end) now = end;
                 }
                 else
                 {
-                    now = Math.Max(now - 10, 0);
+                    now -= 10;
+                    if (now <0) now = 0;
+                    if (now >= start && now < end) now = end;
                 }
-                now = now >= opS && now <= opE ? opE : now;
             }
 
-            answer = ConverTime(now);
+            answer = ConvertToString(now);
 
             return answer;
         }
 
-        public int toSecond(string s)
+        public int ConvertToInt(string s)
         {
             string[] sArr = s.Split(':');
 
-            return (int.Parse(sArr[0])*60) + int.Parse(sArr[1]);
+            return int.Parse(sArr[0]) * 60 + int.Parse(sArr[1]);
         }
-        public string ConverTime(int i)
+
+        public string ConvertToString(int i)
         {
-            return $"{i/60:D2}:{i%60:D2}";
+            string min = (i / 60).ToString().PadLeft(2, '0');
+            string sec = (i % 60).ToString().PadLeft(2, '0');
+            string s = min+sec ;
+            return s.Insert(2, ":");
         }
 }
