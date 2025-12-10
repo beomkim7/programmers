@@ -4,29 +4,29 @@ public class Solution {
 public int solution(int[] schedules, int[,] timelogs, int startday)
         {
             int answer = 0;
-
+            
             for(int i = 0; i < schedules.Length; i++)
             {
-                            int sDay = startday;
-
                 bool check = true;
-                DateTime sWork = ConverTime(schedules[i].ToString()).AddMinutes(10);
-                for(int j = 0;j < timelogs.GetLength(1); j++)
+                int day = startday;
+                DateTime checkDT = ConverT(schedules[i].ToString()).AddMinutes(10);
+
+                for (int j = 0; j < timelogs.GetLength(1); j++)
                 {
-                    if (sDay > 7) sDay = 1;
-                    if (sDay == 6 || sDay == 7)
+                    if (day > 7) day = 1;
+                    if(day ==6 || day == 7)
                     {
-                        sDay++;
+                        day++;
                         continue;
                     }
 
-                    DateTime getWork = ConverTime(timelogs[i, j].ToString());
-                    if (sWork < getWork)
+                    DateTime LogTime = ConverT(timelogs[i, j].ToString());
+                    if (checkDT < LogTime)
                     {
                         check = false;
                         break;
                     }
-                    sDay++;
+                    day++;
                 }
                 if (check) answer++;
 
@@ -35,7 +35,7 @@ public int solution(int[] schedules, int[,] timelogs, int startday)
             return answer;
         }
 
-        public DateTime ConverTime(string s)
+        public DateTime ConverT(string s)
         {
             DateTime dt = Convert.ToDateTime(s.PadLeft(4, '0').Insert(2, ":"));
             return dt;
