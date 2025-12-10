@@ -8,25 +8,25 @@ public class Solution {
 
             Dictionary<string, int> dict = new Dictionary<string, int>();
 
+            for (int i = 0; i < id_list.Length; i++) dict[id_list[i]] = 0;
+
             report = report.Distinct().ToArray();
-            foreach(string s in report)
+
+            for(int i = 0; i < report.Length; i++) dict[report[i].Split(' ')[1]]++;
+
+            for (int i = 0; i < report.Length; i++)
             {
-                string[] sSplit = s.Split(' ');
-                string first = sSplit[1];
-                if (dict.ContainsKey(first)) dict[first]++;
-                else dict[first] = 1;
+                string[] parseR = report[i].Split(' ');
+
+                if(dict[parseR[1]] >= k)
+                {
+                    int check = Array.IndexOf(id_list, parseR[0]);
+                    answer[check]++;
+                }
+
             }
 
-            for(int i = 0; i < report.Length; i++)
-            {
-                string[] sSplit = report[i].Split(' ');
-                string first = sSplit[0];
-                string second = sSplit[1];
 
-                int num = Array.IndexOf(id_list, first);
-                if (dict[second] >= k) answer[num]++;
-            }
-
-            return answer;
+                return answer;
     }
 }
