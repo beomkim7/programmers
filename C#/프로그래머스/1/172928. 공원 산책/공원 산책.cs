@@ -2,70 +2,95 @@ using System;
 
 public class Solution {
     public int[] solution(string[] park, string[] routes) {
- int[] answer = new int[2];
+int[] answer = new int[2];
 
-            int garo = park[0].Length;
-            int sero = park.Length;
+            int limitGaro = park[0].Length - 1;             //2
+            int limitSero = park.Length - 1;                //4
 
-            int gaS = 0;
-            int seS = 0;
-            for(int i = 0; i < sero; i++)
+
+            for(int i = 0; i < park.Length; i++)
             {
                 if (park[i].Contains("S"))
-                    for (int j = 0; j < garo; j++)
-                        if (park[i][j] == 'S')
-                        {
-                            gaS = j;seS = i;
-                            break;
-                        }
+                {
+                    answer[1] = park[i].IndexOf("S");       //1
+                    answer[0] = i;                          //0
+                    break;
+                }
             }
 
-            foreach(string s in routes)
+            for(int i = 0; i< routes.Length; i++)
             {
-                string[] sArr = s.Split(' ');
-                string dir = sArr[0];
+                string[] parseR = routes[i].Split(' ');     //["E 2","S 3","W 1"]
 
-                int dx = 0;
-                int dy = 0;
-                int count = int.Parse(sArr[1]);
+                string direction = parseR[0];               // E
+                int move = int.Parse(parseR[1]);            // 2
 
-                switch (dir)
+                int garo = answer[1];                       //1
+                int sero = answer[0];                       //0
+
+                bool finishC = false;
+
+                switch (direction)
                 {
-                    case "E":dx++; break;
-                    case "W":dx--; break;
-                    case "S":dy++; break;
-                    case "N":dy--; break;
-                }
+                    case "E":
+                        if (garo + move > limitGaro) break;     //2 + 1 > 2
 
-                int nextX = gaS + dx * count;
-                int nextY = seS + dy * count;
-
-                bool check = true;
-                if (nextX < 0 || nextX >= garo || nextY < 0 || nextY >= sero)
-                {
-                    check = false;
-                    continue;
-                }
-                else
-                {
-                    for (int i = 1; i <= count; i++)
-                    {
-                        if (park[seS + dy * i][gaS + dx * i] == 'X') 
+                        while (move > 0)
                         {
-                            check = false;
-                            break;
+                            garo++; move--;
+                            if (park[sero][garo] == 'X')
+                            {
+                                finishC = true;
+                                break;
+                            }
                         }
-                    }
-                }
+                        if (!finishC) answer[1] = garo;
+                        break;
+                    case "W":
+                        if (garo - move < 0) break;
 
-                if (check)
-                {
-                    gaS = nextX;
-                    seS = nextY;
+                        while (move > 0)
+                        {
+                            garo--; move--;
+                            if (park[sero][garo] == 'X')
+                            {
+                                finishC = true;
+                                break;
+                            }
+                        }
+                        if (!finishC) answer[1] = garo;
+                        break;
+                    case "S":
+                        if (sero + move > limitSero) break;
+
+                        while (move > 0)
+                        {
+                            sero++; move--;
+                            if (park[sero][garo] == 'X')
+                            {
+                                finishC = true;
+                                break;
+                            }
+                        }
+                        if (!finishC) answer[0] = sero;
+                        break;
+                    case "N":
+                        if (sero - move < 0) break;
+
+                        while (move > 0)
+                        {
+                            sero--; move--;
+                            if (park[sero][garo] == 'X')
+                            {
+                                finishC = true;
+                                break;
+                            }
+                        }
+                        if(!finishC) answer[0] = sero;
+                        break;
                 }
             }
-            answer[0] = seS;
-            answer[1] = gaS;
+
 
             return answer;
     }
