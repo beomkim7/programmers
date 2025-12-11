@@ -4,93 +4,88 @@ public class Solution {
     public int[] solution(string[] park, string[] routes) {
 int[] answer = new int[2];
 
-            int limitGaro = park[0].Length - 1;             //2
-            int limitSero = park.Length - 1;                //4
-
+            int MaxGaro = park[0].Length-1;
+            int MaxSero = park.Length-1;
 
             for(int i = 0; i < park.Length; i++)
             {
-                if (park[i].Contains("S"))
+                if (park[i].Contains('S'))
                 {
-                    answer[1] = park[i].IndexOf("S");       //1
-                    answer[0] = i;                          //0
-                    break;
+                    answer[0] = i;
+                    answer[1] = park[i].IndexOf('S');
                 }
             }
 
-            for(int i = 0; i< routes.Length; i++)
+            for(int i = 0; i < routes.Length; i++)
             {
-                string[] parseR = routes[i].Split(' ');     //["E 2","S 3","W 1"]
+                string[] routeArr = routes[i].Split(' ');
+                string direction = routeArr[0];
+                int cnt = int.Parse(routeArr[1]);
+                bool check = true;
 
-                string direction = parseR[0];               // E
-                int move = int.Parse(parseR[1]);            // 2
-
-                int garo = answer[1];                       //1
-                int sero = answer[0];                       //0
-
-                bool finishC = false;
-
+                int nowGaro = answer[1];
+                int nowSero = answer[0];
                 switch (direction)
                 {
                     case "E":
-                        if (garo + move > limitGaro) break;     //2 + 1 > 2
-
-                        while (move > 0)
+                        if (nowGaro + cnt > MaxGaro) break;
+                        while (cnt > 0)
                         {
-                            garo++; move--;
-                            if (park[sero][garo] == 'X')
+                            nowGaro++;
+                            cnt--;
+                            if (park[nowSero][nowGaro] == 'X')
                             {
-                                finishC = true;
+                                check = false;
                                 break;
                             }
                         }
-                        if (!finishC) answer[1] = garo;
+                        if (check) answer[1] = nowGaro;
                         break;
                     case "W":
-                        if (garo - move < 0) break;
-
-                        while (move > 0)
+                        if (nowGaro - cnt < 0) break;
+                        while (cnt > 0)
                         {
-                            garo--; move--;
-                            if (park[sero][garo] == 'X')
+                            nowGaro--;
+                            cnt--;
+                            if (park[nowSero][nowGaro] == 'X')
                             {
-                                finishC = true;
+                                check = false;
                                 break;
                             }
                         }
-                        if (!finishC) answer[1] = garo;
+                        if (check) answer[1] = nowGaro;
                         break;
                     case "S":
-                        if (sero + move > limitSero) break;
-
-                        while (move > 0)
+                        if (nowSero + cnt > MaxSero) break;
+                        while (cnt > 0)
                         {
-                            sero++; move--;
-                            if (park[sero][garo] == 'X')
+                            nowSero++;
+                            cnt--;
+                            if (park[nowSero][nowGaro] == 'X')
                             {
-                                finishC = true;
+                                check = false;
                                 break;
                             }
                         }
-                        if (!finishC) answer[0] = sero;
+                        if (check) answer[0] = nowSero;
                         break;
                     case "N":
-                        if (sero - move < 0) break;
-
-                        while (move > 0)
+                        if (nowSero - cnt < 0) break;
+                        while (cnt > 0)
                         {
-                            sero--; move--;
-                            if (park[sero][garo] == 'X')
+                            nowSero--;
+                            cnt--;
+                            if (park[nowSero][nowGaro] == 'X')
                             {
-                                finishC = true;
+                                check = false;
                                 break;
                             }
                         }
-                        if(!finishC) answer[0] = sero;
+                        if(check)answer[0] = nowSero;
                         break;
+
                 }
             }
-
 
             return answer;
     }
