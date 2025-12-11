@@ -1,32 +1,28 @@
 using System;
 using System.Collections.Generic;
 public class Solution {
-    public int[] solution(string today, string[] terms, string[] privacies)
-        {
-            int[] answer = new int[] { };
-            List<int> answerArr = new List<int>();
+    public int[] solution(string today, string[] terms, string[] privacies) {
+List<int> answer = new List<int>();
 
-            Dictionary<string, DateTime> dict = new Dictionary<string, DateTime>();
+            Dictionary<string, int> dict = new Dictionary<string, int>();
 
             for(int i = 0; i < terms.Length; i++)
             {
-                string[] parseT = terms[i].Split(' ');
-                dict.Add(parseT[0], ConverT(today).AddMonths(-int.Parse(parseT[1])));
+                string[] termsArr = terms[i].Split(' ');
+                dict[termsArr[0]] = int.Parse(termsArr[1]);
             }
 
-            for(int i = 0; i < privacies.Length; i++)
+            DateTime checkDay = Convert.ToDateTime(today);
+            for (int i = 0; i < privacies.Length; i++)
             {
-                string[] parseT = privacies[i].Split(' ');
-                DateTime priDt = ConverT(parseT[0]);
+                string[] priArr = privacies[i].Split(' ');
+                string area = priArr[1];
+                DateTime checkDel = Convert.ToDateTime(priArr[0]).AddMonths(dict[area]);
 
-                if (dict[parseT[1]] >= priDt) answerArr.Add(i+1);
+                if (checkDay >= checkDel) answer.Add(i+1);
+
             }
 
-            return answerArr.ToArray();
-        }
-        public DateTime ConverT(string s)
-        {
-            DateTime dt = Convert.ToDateTime(s);
-            return dt;
-        }
+            return answer.ToArray();
+    }
 }
