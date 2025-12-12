@@ -1,56 +1,60 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 public class Solution {
-    public int solution(string[] friends, string[] gifts) {
-int answer = 0;
+    public int solution(string[] friends, string[] gifts){
+            int answer = 0;
+            int n = friends.Length;
 
             Dictionary<string, int> dict = new Dictionary<string, int>();
-            for (int i = 0; i < friends.Length; i++) dict[friends[i]] = i;
+            for (int i = 0; i < n; i++) dict[friends[i]] = i;
 
-            int n = friends.Length;
-            int[,] gift = new int[n, n];
-
+            int[,] receiver = new int[n, n];
             for(int i = 0; i < gifts.Length; i++)
             {
                 string[] giftArr = gifts[i].Split(' ');
                 int A = dict[giftArr[0]];
                 int B = dict[giftArr[1]];
 
-                gift[A, B]++;
+                receiver[A, B]++;
             }
 
-            int[] score = new int[n];
-            for(int i = 0; i < score.Length; i++)
+            //for (int i = 0; i < receiver.GetLength(0); i++)
+            //{
+            //    for (int j = 0; j < receiver.GetLength(1); j++)
+            //        Console.Write(receiver[i, j]);
+            //    Console.WriteLine();
+            //}
+
+            int[] grade = new int[n];
+            for(int a = 0; a < n; a++)
             {
                 int give = 0, take = 0;
-                for (int j = 0; j < score.Length; j++)
+                for(int b= 0; b < n; b++)
                 {
-                    give += gift[i, j];
-                    take += gift[j, i];
+                    give += receiver[a, b];
+                    take += receiver[b, a];
                 }
-                score[i] = give - take;
+                grade[a] += give - take;
             }
+            //Console.WriteLine(string.Join(",", grade));
 
-            int[] receiveNext = new int[n];
-
-            for(int i = 0; i < n;i++)
-                for(int j = i + 1; j < n; j++)
+            int[] final = new int[n];
+            for(int a= 0; a < n; a++)
+            {
+                for(int b = a + 1; b < n; b++)
                 {
-                    int giveA = gift[i, j];
-                    int giveB = gift[j, i];
-
-                    if (giveA > giveB) receiveNext[i]++;
-                    else if(giveA < giveB) receiveNext[j]++;
+                    if (receiver[a, b] > receiver[b, a]) final[a]++;
+                    else if(receiver[a, b] < receiver[b, a]) final[b]++;
                     else
                     {
-                        if (score[i] > score[j]) receiveNext[i]++;
-                        else if(score[i] < score[j]) receiveNext[j]++;
+                        if (grade[a] > grade[b]) final[a]++;
+                        else if (grade[a] < grade[b]) final[b]++;
                     }
                 }
-            answer = receiveNext.Max();    
-
+            }
+            
+            answer = final.Max();
             return answer;
-    }
+        }
 }
