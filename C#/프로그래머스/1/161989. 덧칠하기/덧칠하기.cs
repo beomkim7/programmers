@@ -2,17 +2,16 @@ using System;
 
 public class Solution {
     public int solution(int n, int m, int[] section) {
-int answer = 0;
-
-            int index = 0;
-
-            while(index < section.Length)
+            int answer = 0;
+            int temp = 0;
+            for(int i = 0; i < section.Length; i++)
             {
-                int start = section[index];
-                int end = start + m - 1;
+                if(section[i] > temp)
+                {
+                    temp = section[i] + m - 1;
+                    answer++;
+                }
 
-                while (index < section.Length && section[index] <= end) index++;
-                answer++;
             }
 
             return answer;
