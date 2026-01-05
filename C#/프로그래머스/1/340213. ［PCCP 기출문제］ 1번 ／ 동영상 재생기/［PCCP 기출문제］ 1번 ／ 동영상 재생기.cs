@@ -1,42 +1,40 @@
 using System;
 
 public class Solution {
-public string solution(string video_len, string pos, string op_start, string op_end, string[] commands)
-        {
-            string answer = "";
-            int len = convertToSec(video_len);
-            int now = convertToSec(pos);
-            int start = convertToSec(op_start);
-            int end = convertToSec(op_end);
-            if (now >= start && now < end) now = end;
+    public string solution(string video_len, string pos, string op_start, string op_end, string[] commands) {
+        string answer = "";
+            int len = ConvertStToInt(video_len);
+            int i_pos = ConvertStToInt(pos);
+            int i_start = ConvertStToInt(op_start);
+            int i_end = ConvertStToInt(op_end);
 
-            foreach (string s in commands)
+            if (i_pos >= i_start && i_pos <= i_end) i_pos = i_end;
+if (i_pos >= len) i_pos = len;
+            foreach(string s in commands)
             {
-                if (s == "next")
-                {
-                    now += 10;
-                    now = result(len, now, start, end);                    
-                }
-                else
-                {
-                    now -= 10;
-                    now = result(len, now, start, end);
-                }
+                                if(s == "next") i_pos += 10;                
+                else i_pos -= 10;
+
+                if (i_pos < 0) i_pos = 0;
+                if (i_pos > len) i_pos = len;
+
+                if (i_pos >= i_start && i_pos <= i_end) i_pos = i_end;
             }
-            answer = ((now / 60).ToString().PadLeft(2, '0') + (now % 60).ToString().PadLeft(2, '0')).Insert(2, ":");
+            answer = ConvertToString(i_pos);
             return answer;
         }
-        public int result(int len,int now,int start,int end)
-        {            
-            if (now < 0) now = 0;
-            if (now > len) now = len;
-            if (now >= start && now < end) now = end;
-            return now;
+
+        public int ConvertStToInt(string s)
+        {
+            string[] sArr = s.Split(':');
+            int i = int.Parse(sArr[0]) * 60 + int.Parse(sArr[1]);
+            return i;
         }
 
-        public int convertToSec(string s)
+        public string ConvertToString(int i)
         {
-            string[] sParse = s.Split(':');
-            return int.Parse(sParse[0]) * 60 + int.Parse(sParse[1]);
+            string st = (i / 60).ToString().PadLeft(2, '0') + (i % 60).ToString().PadLeft(2, '0');
+            st = st.Insert(2, ":");
+            return st;
         }
 }
