@@ -1,42 +1,39 @@
 using System;
 
 public class Solution {
-public int solution(int[] schedules, int[,] timelogs, int startday)
-        {
-            int answer = 0;
-
+    public int solution(int[] schedules, int[,] timelogs, int startday) {
+        int answer = 0;
+            Console.WriteLine(timelogs.GetLength(1));
             for(int i = 0; i < schedules.Length; i++)
             {
-                DateTime checkT = ConverTotime(schedules[i]).AddMinutes(10);
-                int day = startday;
-                bool finish = true;
+                int clearD = startday;
+                bool check = true;
+                DateTime checkSch = convertDT(schedules[i]).AddMinutes(10);
                 for(int j = 0; j < timelogs.GetLength(1); j++)
                 {
-                    if (day > 7) day = 1;
-                    if (day == 6 || day == 7)
+                    if (clearD > 7) clearD = 1;
+                    if (clearD == 6 || clearD == 7)
                     {
-                        day++;
+                        clearD++;
                         continue;
                     }
-
-                    DateTime logTime = ConverTotime(timelogs[i, j]);
-
-                    if (checkT < logTime)
+                    DateTime timeC = convertDT(timelogs[i, j]);
+                    if (checkSch < timeC)
                     {
-                        finish = false;
+                        check = false;
                         break;
                     }
-                    day++;
+                    clearD++;
                 }
-                if (finish) answer++;
+                if (check) answer++;
             }
 
             return answer;
         }
 
-        public DateTime ConverTotime(int i)
+        public DateTime convertDT(int i)
         {
-            DateTime dt = Convert.ToDateTime(i.ToString().PadLeft(4, '0').Insert(2, ":"));
+            DateTime dt = Convert.ToDateTime(i.ToString().PadLeft(4, '0').Insert(2,":"));
             return dt;
         }
 }
