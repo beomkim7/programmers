@@ -1,20 +1,16 @@
-using System;
 public class Solution {
     public long solution(int n) {
-            if (n == 1) return 1;
+if (n == 1) return 1;
             if (n == 2) return 2;
 
-
-            long[] check = new long[n + 1];
-            check[1] = 1;
-            check[2] = 2;
-            
-            for (int i = 3; i <= n; i++)
+            long[] answer = new long[n + 1];
+            answer[1] = 1;
+            answer[2] = 2;
+            for(int i = 3; i <= n; i++)
             {
-                check[i] = (check[i - 1] + check[i - 2]) % 1234567;
+                answer[i] = (answer[i - 1] + answer[i - 2])%1234567;
             }
-            
 
-            return check[n];
+            return answer[n];
     }
 }
