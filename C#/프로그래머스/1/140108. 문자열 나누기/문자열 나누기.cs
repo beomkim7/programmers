@@ -2,36 +2,33 @@ using System;
 
 public class Solution {
     public int solution(string s) {
-            int answer = 0;
-
+int answer = 0;
             char[] sArr = s.ToCharArray();
 
-            char now;
+            int num = 0;
+            int cnt = 0;            
             char prev = ' ';
 
-            int nowCnt = 0;
-            int differ = 0;
-            foreach(char c in sArr)
-            {
-                now = c;
-                if (now == prev || prev == ' ')
+            while (num < sArr.Length)
+            {                
+                char now = sArr[num];
+                if (prev == ' ')
                 {
-                    nowCnt++;
-                    prev = c;
+                    prev = now;
+                    cnt += 1;
                 }
-                else differ++;
+                else if (prev == now) cnt++;                
+                else cnt--;
 
-                
-                if (nowCnt == differ)
+                if (cnt == 0)
                 {
                     answer++;
-                    nowCnt = 0;
-                    differ = 0;
                     prev = ' ';
-                }                
+                    cnt = 0;
+                }
+                num++;
             }
-            if (prev != ' ') answer++;
-
+if (prev != ' ') answer += 1;
             return answer;
     }
 }
