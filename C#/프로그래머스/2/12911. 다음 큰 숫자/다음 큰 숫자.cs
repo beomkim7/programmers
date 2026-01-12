@@ -4,16 +4,19 @@ class Solution
 {
     public int solution(int n) 
    {
-            int answer = n;
+            int answer = 0;
 
-            int CheckN = Convert.ToString(n, 2).Count(x => x == '1');
-            while (true)
+            int nCnt = Convert.ToString(n, 2).Count(x => x == '1');
+
+            for (int i = n + 1; i < int.MaxValue; i++)
             {
-                answer += 1;
-                int answerN = Convert.ToString(answer, 2).Count(c => c == '1');
-                if (CheckN == answerN) break;
+                int nextCnt = Convert.ToString(i, 2).Count(x => x == '1');
+                if (nCnt == nextCnt)
+                {
+                    answer = i;
+                    break;
+                }
             }
-
             return answer;
     }
 }
