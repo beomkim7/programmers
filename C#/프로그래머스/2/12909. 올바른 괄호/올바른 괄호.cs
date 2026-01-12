@@ -2,18 +2,25 @@ using System;
 using System.Collections.Generic;
 public class Solution {
     public bool solution(string s) {
-bool answer = true;
-            Stack<char> st = new Stack<char>();
+            bool answer = true;
 
-            foreach(char c in s)
+            int num = 0;
+            Queue<char> que = new Queue<char>();
+            while (num < s.Length)
             {
-                if (c == '(') st.Push(c);
+                if (s[num] == '(') que.Enqueue('(');
                 else
                 {
-                    if (st.Count == 0) return false;
-                    else st.Pop();
+                    if (que.Count > 0) que.Dequeue();
+                    else
+                    {
+                        answer = false;
+                        break;
+                    }
                 }
+                num++;
             }
-            return answer = st.Count==0;
+if (que.Count != 0) answer = false;
+            return answer;
     }
 }
