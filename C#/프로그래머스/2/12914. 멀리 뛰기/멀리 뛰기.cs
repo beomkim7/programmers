@@ -1,16 +1,17 @@
 public class Solution {
     public long solution(int n) {
-if (n == 1) return 1;
+                                             if (n == 1) return 1;
             if (n == 2) return 2;
-
-            long[] answer = new long[n + 1];
-            answer[1] = 1;
-            answer[2] = 2;
-            for(int i = 3; i <= n; i++)
+            long answer = 0;
+            long[] nArr = new long[n+1];
+            nArr[1] = 1;
+            nArr[2] = 2;
+            if (n >= 3)
             {
-                answer[i] = (answer[i - 1] + answer[i - 2])%1234567;
+                for (int i = 3; i <= n; i++)
+                    nArr[i] = (nArr[i - 1] + nArr[i - 2])% 1234567;
             }
-
-            return answer[n];
+            answer = nArr[n];
+            return answer;
     }
 }
