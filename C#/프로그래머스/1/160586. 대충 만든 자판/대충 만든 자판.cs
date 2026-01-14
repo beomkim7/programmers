@@ -1,32 +1,27 @@
-using System;using System.Linq;
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
 public class Solution {
     public int[] solution(string[] keymap, string[] targets) {
-int length = targets.Length;
-            int[] answer = new int[length];
+            int[] answer = new int[targets.Length];
 
-            for(int i = 0; i < length; i++)
-            {                
-                for (int j = 0; j < targets[i].Length; j++)
+            for(int i = 0; i < targets.Length; i++)
+            {
+                for(int j = 0; j < targets[i].Length; j++)
                 {
-                    int min = int.MaxValue;
-                    int num = 0;
-                    for (int k = 0; k < keymap.Length; k++)
+                    List<int> check = new List<int>();
+                    for(int z = 0; z < keymap.Length; z++)
                     {
-                        if (keymap[k].Contains(targets[i][j]))
-                        {
-                            num = keymap[k].IndexOf(targets[i][j]);
-                            if (min > num) min = num;
-                        }
+                        if (keymap[z].Contains(targets[i][j]))
+                            check.Add(keymap[z].IndexOf(targets[i][j])+1);
                     }
-                    answer[i] += min + 1;
-                    if (min == int.MaxValue)
+if (check.Count == 0)
                     {
                         answer[i] = -1;
                         break;
                     }
-                }     
-                
+                    else answer[i] += check.Min();
+                }
             }
 
             return answer;
