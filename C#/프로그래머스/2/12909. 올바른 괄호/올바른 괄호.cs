@@ -1,26 +1,26 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 public class Solution {
     public bool solution(string s) {
             bool answer = true;
-
             int num = 0;
-            Queue<char> que = new Queue<char>();
-            while (num < s.Length)
+
+            Stack<char> st = new Stack<char>();
+            while(num < s.Length)
             {
-                if (s[num] == '(') que.Enqueue('(');
+                if (s[num] == '(') st.Push(s[num]);
                 else
                 {
-                    if (que.Count > 0) que.Dequeue();
-                    else
+                    if (st.Count == 0)
                     {
-                        answer = false;
-                        break;
+                        return false;
                     }
+                    else st.Pop();
                 }
                 num++;
             }
-if (que.Count != 0) answer = false;
+            answer = st.Count() == 0;
             return answer;
     }
 }
