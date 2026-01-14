@@ -1,26 +1,23 @@
-using System;using System.Linq;
-
+using System;
+using System.Linq;
 public class Solution {
     public string solution(string s, string skip, int index) {
             string answer = "";
-
-            foreach(char c in s)
+            char[] sArr = s.ToArray();
+            foreach (char c in sArr)
             {
-                int count = 0;
-                char temp = c;
-
-                while (count < index)
+                int check = 0;
+                char now = c;
+                while (check < index)
                 {
-                    if (temp == 'z') temp = 'a';
-                    else temp++;
-
-                    if (skip.Contains(temp)) continue;
-
-                    count++;
+                    ++now;
+                    if (now - '0' > 74) now = 'a';
+                    if (skip.Contains(now)) continue;
+                    check++;
                 }
-                answer += temp;
+                answer += now;
             }
-
+                
             return answer;
     }
 }
