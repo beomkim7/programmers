@@ -4,27 +4,23 @@ class Solution
 {
     public int solution(int[] nums)
         {
-                        int answer = 0;
+            int answer = 0;
 
             for(int i = 0; i <nums.Length-2;i++)
                 for(int j = i+1;j<nums.Length-1;j++)
-                    for(int k = j+1; k < nums.Length; k++)
+                    for(int z= j + 1; z < nums.Length; z++)
                     {
-                        if (check(nums[i] + nums[j] + nums[k]) == 2) answer++;
-                    }
-            
+                        if(check(nums[i] + nums[j] + nums[z])==2) answer++;
 
+                    }
             return answer;
         }
 
-        public int check(int i)
+        public int check(int num)
         {
             int result = 0;
-            for(int j = 1; j <= i ; j++)
-            {
-                if (i % j == 0) result++;
-            }
-
+            for (int i = 1; i <= num; i++)
+                if (num % i == 0) result++;
             return result;
         }
 }
