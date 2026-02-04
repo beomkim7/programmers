@@ -3,31 +3,19 @@ using System.Linq;
 public class Solution {
     public int[] solution(int[] lottos, int[] win_nums) {
 int[] answer = new int[2];
-            int length = lottos.Length;
-
-            int bonus = 0;
-            int result = 0;
-            for(int i = 0; i < length; i++)
+            int fNum = 0;
+            int sNum = 0;
+            foreach(int i in lottos)
             {
-                for(int j = 0; j < length; j++)
-                {
-                    if (lottos[i] == win_nums[j])
-                    {
-                        result++;
-                        break;
-                    }
-                }
+                if (i == 0) { sNum++; continue; }
+                if (win_nums.Contains(i)) fNum++;
             }
+            sNum += fNum;
+            if (sNum > 1) answer[0] = 7 - sNum;
+            else answer[0] = 6;
 
-            bonus = lottos.Where(x => x == 0).Count() + result;
-            //6 5 4 3 2 1 
-            //1 2 3 4 5 6
-            bonus = Math.Min(6, 7- bonus);
-            result = Math.Min(6, 7 - result);
-
-            answer[0] = bonus;
-            answer[1] = result;
-
+            if (fNum > 1) answer[1] = 7 - fNum;
+            else answer[1] = 6;
             return answer;
     }
 }
