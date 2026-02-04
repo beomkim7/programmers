@@ -3,24 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 public class Solution {
     public int[] solution(string[] keymap, string[] targets) {
-            int[] answer = new int[targets.Length];
+ int[] answer = new int[targets.Length];
 
-            for(int i = 0; i < targets.Length; i++)
+            for(int i = 0;i < targets.Length;i++)
             {
-                for(int j = 0; j < targets[i].Length; j++)
+                foreach(char c in targets[i])
                 {
-                    List<int> check = new List<int>();
-                    for(int z = 0; z < keymap.Length; z++)
+                    List<int> keyLst = new List<int>();
+                    for(int j = 0;j < keymap.Length; j++)
                     {
-                        if (keymap[z].Contains(targets[i][j]))
-                            check.Add(keymap[z].IndexOf(targets[i][j])+1);
+                        int index = keymap[j].IndexOf(c);
+                        if (index != -1)
+                        {
+                            keyLst.Add(index + 1);
+                        }
                     }
-if (check.Count == 0)
+                    if (keyLst.Count == 0)
                     {
                         answer[i] = -1;
                         break;
                     }
-                    else answer[i] += check.Min();
+                    else answer[i] += keyLst.Min();
                 }
             }
 
