@@ -1,23 +1,24 @@
 using System;
-using System.Linq;
+
 public class Solution {
     public string solution(string s, string skip, int index) {
-            string answer = "";
-            char[] sArr = s.ToArray();
-            foreach (char c in sArr)
+string answer = "";
+
+            for(int i = 0; i < s.Length; i++)
             {
-                int check = 0;
-                char now = c;
-                while (check < index)
+                int num = 1;
+                char c = s[i];
+                while (num <= index)
                 {
-                    ++now;
-                    if (now - '0' > 74) now = 'a';
-                    if (skip.Contains(now)) continue;
-                    check++;
+                    ++c;
+                    if (c - '0' > 74) c = 'a';
+                    if (skip.Contains(c)) continue;
+
+                    num++;
                 }
-                answer += now;
+                answer += c;
             }
-                
+
             return answer;
     }
 }
