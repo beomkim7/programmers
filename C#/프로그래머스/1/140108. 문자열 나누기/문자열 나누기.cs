@@ -3,32 +3,29 @@ using System;
 public class Solution {
     public int solution(string s) {
 int answer = 0;
-            char[] sArr = s.ToCharArray();
+            int cnt = 0, prev = 0, next = 0;
+            char check = ' ';
+            while (s.Length > cnt) 
+            {
+                char c = s[cnt];
 
-            int num = 0;
-            int cnt = 0;            
-            char prev = ' ';
-
-            while (num < sArr.Length)
-            {                
-                char now = sArr[num];
-                if (prev == ' ')
+                if (check == ' ')
                 {
-                    prev = now;
-                    cnt += 1;
+                    check = c;
+                    prev++;
                 }
-                else if (prev == now) cnt++;                
-                else cnt--;
+                else if (check == c) prev++;
+                else if (check != c) next++;
+                
 
-                if (cnt == 0)
+                if(prev == next)
                 {
                     answer++;
-                    prev = ' ';
-                    cnt = 0;
+                    prev = 0; next = 0; check = ' ';
                 }
-                num++;
+                cnt++;
             }
-if (prev != ' ') answer += 1;
+            if (prev > 0) answer++;
             return answer;
     }
 }
