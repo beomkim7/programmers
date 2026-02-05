@@ -1,27 +1,32 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 public class Solution {
     public string solution(string X, string Y) {
-string answer = "";
-            StringBuilder sb = new StringBuilder();
+ string answer = "";
+            Dictionary<char, int> dict = new Dictionary<char, int>();
 
-            int[] Xarr = new int[10];
-            int[] Yarr = new int[10];
-
-            foreach(char c in X) Xarr[c - '0']++;
-            foreach(char c in Y) Yarr[c - '0']++;
-
-            for(int i = 9; i >=0; i--)
+            foreach(char c in X)
             {
-                int check = Math.Min(Xarr[i], Yarr[i]);
-                if (check > 0) sb.Append((char)(i + '0'), check);
+                if (dict.ContainsKey(c)) dict[c]++;
+                else dict[c] = 1;
             }
 
-            if (sb.Length == 0) return "-1";
-            if (sb[0] == '0') return "0";
+            List<char> numLst = new List<char>();
 
+            foreach(char c in Y)
+            {
+                if(dict.ContainsKey(c) && dict[c] > 0)
+                {
+                    numLst.Add(c);
+                    dict[c]--;
+                }
+            }
 
-            return sb.ToString();
+            answer = new string(numLst.OrderByDescending(x => x).ToArray());
+            if (numLst.Count == 0) answer = "-1";
+            else if (int.TryParse(answer, out int result) && result == 0) answer = "0";
+
+            return answer;
     }
 }
