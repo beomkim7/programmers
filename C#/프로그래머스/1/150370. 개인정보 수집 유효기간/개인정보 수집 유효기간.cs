@@ -7,17 +7,15 @@ public class Solution {
             for(int i = 0; i < terms.Length; i++)
             {
                 string[] sArr = terms[i].Split(' ');
-                dict[sArr[0]] = int.Parse(sArr[1]);
+                dict.Add(sArr[0], int.Parse(sArr[1]));
             }
 
+            DateTime dt = Convert.ToDateTime(today);
             for(int i = 0; i < privacies.Length; i++)
             {
                 string[] sArr = privacies[i].Split(' ');
-                int month = dict[sArr[1]];
-
-                DateTime now = Convert.ToDateTime(today);
-                DateTime check = Convert.ToDateTime(sArr[0]).AddMonths(month);
-                if (now >= check) answer.Add(i+1);
+                DateTime CheckD = Convert.ToDateTime(sArr[0]).AddMonths(dict[sArr[1]]);
+                if (dt >= CheckD) answer.Add(i+1);
             }
 
             return answer.ToArray();
