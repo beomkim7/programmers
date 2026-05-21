@@ -4,22 +4,14 @@ public class Solution {
     public int[] solution(string s) {
             int[] answer = new int[s.Length];
 
-            string st = "";
-            for(int i = 0 ; i < s.Length; i++)
+            string check = "";
+            for(int i = 0 ; i < s.Length ; i++)
             {
-                if (!st.Contains(s[i]))
-                {
-                    st +=s[i];
-                    answer[i] = -1;
-                }
-                else
-                {
-                    int check = st.LastIndexOf(s[i]);
-                    st += s[i];
-                    answer[i] = st.LastIndexOf(s[i]) - check;
-                }
+                if(!check.Contains(s[i])) answer[i] = -1;
+                else answer[i]= check.Length - check.LastIndexOf(s[i]);
+                
+                check += s[i];
             }
-
             return answer;
     }
 }
